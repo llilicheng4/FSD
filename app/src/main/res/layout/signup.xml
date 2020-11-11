@@ -114,7 +114,7 @@
         android:elevation="2dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
+        app:layout_constraintBottom_toTopOf="@+id/btnSignup"
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/button" />
@@ -178,7 +178,7 @@
         app:layout_constraintStart_toStartOf="@+id/etPassword" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignup"
         android:layout_width="326dp"
         android:layout_height="45dp"
         android:background="#1A6D46"

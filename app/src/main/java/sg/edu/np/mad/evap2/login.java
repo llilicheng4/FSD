@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class login extends AppCompatActivity {
+    public static UserData userdata;
     final String TAG = "LoginActivity";
     public EditText emailId, password;
     Button btnSignIn;
@@ -35,11 +36,11 @@ public class login extends AppCompatActivity {
         //create firebase instance
         mFirebaseAuth = FirebaseAuth.getInstance();
         //find email from text input
-        emailId = findViewById(R.id.emailIn);
+        emailId = findViewById(R.id.etEmail);
         //find password from text input
-        password = findViewById((R.id.passIn));
+        password = findViewById((R.id.etPassword));
         //button
-        btnSignIn = findViewById(R.id.loginIn);
+        btnSignIn = findViewById(R.id.btnLogin);
         //link to sign in
         signUp = findViewById(R.id.tvSignup);
 
@@ -104,7 +105,7 @@ public class login extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent ChangeActivity = new Intent(login.this, MainActivity.class);
+                Intent ChangeActivity = new Intent(login.this, signup.class);
                 startActivity(ChangeActivity);
 
             }

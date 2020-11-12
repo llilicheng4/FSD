@@ -40,7 +40,7 @@ public class login extends AppCompatActivity {
         //find password from text input
         password = findViewById((R.id.etPassword));
         //button
-        btnSignIn = findViewById(R.id.btnLogin);
+        btnSignIn = findViewById(R.id.btnSignup);
         //link to sign in
         signUp = findViewById(R.id.tvSignup);
 

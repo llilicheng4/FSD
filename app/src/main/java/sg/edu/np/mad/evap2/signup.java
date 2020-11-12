@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 
@@ -27,7 +28,7 @@ public class signup extends AppCompatActivity {
     private Button btnSignUp;
     private FirebaseAuth mAuth;
     private DatabaseReference ref;
-
+    private TextView loginRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +38,19 @@ public class signup extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPwd = findViewById(R.id.etPassword);
         etCfmPwd = findViewById(R.id.etCfmpassword);
-
         btnSignUp = findViewById(R.id.btnSignup);
+        loginRef = findViewById(R.id.tvSignup);
 
         mAuth = FirebaseAuth.getInstance();
         ref = FirebaseDatabase.getInstance().getReference();
 
+        loginRef.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toSignIn = new Intent(signup.this, login.class);
+                startActivity(toSignIn);
+            }
+        });
         //submit account data into firebase when button is clicked
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

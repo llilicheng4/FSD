@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.EditText;
 
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class signup extends AppCompatActivity {
     private EditText etUsername, etEmail, etPwd, etCfmPwd;
+    private TextView tvLogin;
     private Button btnSignUp;
     private FirebaseAuth mAuth;
     private DatabaseReference ref;
@@ -37,6 +39,8 @@ public class signup extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPwd = findViewById(R.id.etPassword);
         etCfmPwd = findViewById(R.id.etCfmpassword);
+
+        tvLogin = findViewById(R.id.tvSignup);
 
         btnSignUp = findViewById(R.id.btnSignup);
 
@@ -100,6 +104,15 @@ public class signup extends AppCompatActivity {
                                 }
                             });
                 }
+            }
+        });
+
+        //text view to redirect users back to login page if they have an account
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mainpage = new Intent(signup.this, login.class);
+                startActivity(mainpage);
             }
         });
     }

@@ -99,7 +99,7 @@
         android:layout_marginBottom="40dp"
         android:elevation="2dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/etCfmpassword"
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintStart_toStartOf="@+id/button" />
@@ -113,7 +113,7 @@
         android:layout_marginBottom="8dp"
         android:elevation="2dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         app:layout_constraintBottom_toTopOf="@+id/btnSignup"
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintHorizontal_bias="0.0"

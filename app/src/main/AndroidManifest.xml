@@ -24,6 +24,14 @@
         <activity android:name=".personaltasklist">
 
         </activity>
+
+        <activity android:name=".discussionboard">
+
+        </activity>
+
+        <activity android:name=".account">
+
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

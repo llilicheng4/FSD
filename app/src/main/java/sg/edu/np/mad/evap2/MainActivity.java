@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -30,11 +31,16 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.openDrawer(GravityCompat.START);
     }
 
+    //allows for the drawer to disappear if user presses back on their phone
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START); //close drawer
-
         }
+    }
 
+    //intents for navigation items
+    public void tvTasklistClick(View view){
+        Intent i = new Intent(MainActivity.this, personaltasklist.class);
+        startActivity(i);
     }
 }

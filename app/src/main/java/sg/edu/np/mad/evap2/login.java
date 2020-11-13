@@ -22,7 +22,7 @@ public class login extends AppCompatActivity {
     public static UserData userdata;
     final String TAG = "LoginActivity";
     public EditText emailId, password;
-    Button btnSignIn;
+    Button btnLogin;
     TextView signUp;
     //create firebase object
     FirebaseAuth mFirebaseAuth;
@@ -40,7 +40,7 @@ public class login extends AppCompatActivity {
         //find password from text input
         password = findViewById((R.id.etPassword));
         //button
-        btnSignIn = findViewById(R.id.btnSignup);
+        btnLogin = findViewById(R.id.btnLogin);
         //link to sign in
         signUp = findViewById(R.id.tvSignup);
 
@@ -60,7 +60,7 @@ public class login extends AppCompatActivity {
                 }
             }
         };
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = emailId.getText().toString();

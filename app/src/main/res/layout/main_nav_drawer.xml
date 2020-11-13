@@ -92,6 +92,7 @@
                     android:fontFamily="@font/quicksand"
                     android:gravity="center_vertical"
                     android:text="Browse modules"
+                    android:onClick="tvModulesClick"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"/>
             </LinearLayout>
@@ -109,6 +110,7 @@
                     android:fontFamily="@font/quicksand"
                     android:gravity="center_vertical"
                     android:text="Personal tasklist"
+                    android:onClick="tvTasklistClick"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"/>
             </LinearLayout>
@@ -126,6 +128,7 @@
                     android:fontFamily="@font/quicksand"
                     android:gravity="center_vertical"
                     android:text="Discussion board"
+                    android:onClick="tvDiscussionClick"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"/>
             </LinearLayout>
@@ -143,6 +146,7 @@
                     android:fontFamily="@font/quicksand"
                     android:gravity="center_vertical"
                     android:text="Account"
+                    android:onClick="tvAccountClick"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"/>
             </LinearLayout>
@@ -160,6 +164,7 @@
                     android:fontFamily="@font/quicksand"
                     android:gravity="center_vertical"
                     android:text="Log out"
+                    android:onClick="tvLogoutClick"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"/>
             </LinearLayout>

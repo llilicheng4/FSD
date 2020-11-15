@@ -1,15 +1,14 @@
 package sg.edu.np.mad.evap2;
 
 public class Student extends UserData {
-private String StudentName, ClassID;
+private KanPanBoard kanPanBoard;
 private TimeTable timeTable;
 
 public Student(){};
 
-Student(String studentName, String classID){
-    StudentName = studentName;
-    ClassID = classID;
-}
+    public Student(String myUsername, String myEmail, String myPwd) {
+        super(myUsername, myEmail, myPwd);
+    }
 
     @Override
     public String getEmail() {
@@ -41,27 +40,19 @@ Student(String studentName, String classID){
         super.setUsername(username);
     }
 
-    public String getClassID() {
-        return ClassID;
-    }
-
-    public void setClassID(String classID) {
-        ClassID = classID;
-    }
-
-    public String getStudentName() {
-        return StudentName;
-    }
-
-    public void setStudentName(String studentName) {
-        StudentName = studentName;
-    }
-
     public TimeTable getTimeTable() {
         return timeTable;
     }
 
     public void setTimeTable(TimeTable timeTable) {
         this.timeTable = timeTable;
+    }
+
+    public KanPanBoard getKanPanBoard() {
+        return kanPanBoard;
+    }
+
+    public void setKanPanBoard(KanPanBoard kanPanBoard) {
+        this.kanPanBoard = kanPanBoard;
     }
 }

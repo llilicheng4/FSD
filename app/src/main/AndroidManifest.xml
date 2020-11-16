@@ -25,10 +25,6 @@
         <activity android:name=".discussionboard" />
         <activity android:name=".account" />
 
-        <activity android:name=".account">
-
-        </activity>
-
         <activity android:name=".creategrp">
 
         </activity>

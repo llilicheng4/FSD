@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">EVAp2</string>
+    <string name="task_descri">
+
+Task description
+</string>
+    <string name="note_title">
+
+Note title
+</string>
+
+    <string name="note_desc">
+
+Note desc
+</string>
 </resources>

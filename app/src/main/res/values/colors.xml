@@ -3,4 +3,22 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="darkThemeLayerOne">#3B3B3B</color>
+    <color name="darkThemeLayerTwo">#515151</color>
+    <color name="darkThemeLayerThree">#969696</color>
+    <color name="darkThemePrimaryAccent">#BB86FC</color>
+    <color name="darkThemePrimaryAccentDark">#3700B3</color>
+    <color name= "darkThemeSecondaryAccent">#03DAC5</color>
+    <color name= "darkThemeTitle">#C4C4C4</color>
+    <color name= "darkThemeFadedTitle">#8F8E8E</color>
+    <color name= "darkThemeWhiteText">#FFFFFF</color>
+    <color name = "darkThemeGrayText">#C2C1C1</color>
+    <color name= "darkThemeBlackText">#000000</color>
+    <color name="darkThemeNavColor">#473368</color>
+    <color name="darkThemeBgColor">#222222</color>
+    <color name="darkgreen">#053B31</color>
+    <color name="priorityVeryImpt">#FF5C3E</color>
+    <color name="priorityImpt">#FFD36E</color>
+    <color name="priorityNotImpt">#5CD896</color>
 </resources>

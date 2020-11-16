@@ -127,7 +127,9 @@ public class discussionboard extends AppCompatActivity {
                         groupsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-
+                                Intent intent = new Intent(discussionboard.this, grpchat.class);
+                                intent.putExtra("groupname", itemText);
+                                startActivity(intent);
                             }
                         });
                     }
@@ -164,4 +166,5 @@ public class discussionboard extends AppCompatActivity {
             grpdesc = itemView.findViewById(R.id.tvgrpdesc);
         }
     }
+
 }

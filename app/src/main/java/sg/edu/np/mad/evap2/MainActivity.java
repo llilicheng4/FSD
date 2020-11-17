@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
@@ -48,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void tvDiscussionClick(View view){
         redirectActivity(this, discussionboard.class);
+    }
+
+    public void tvLogoutClick (View view){
+        FirebaseAuth.getInstance().signOut();
+        redirectActivity(this,login.class);
     }
 
     public static void redirectActivity(Activity activity, Class aClass){

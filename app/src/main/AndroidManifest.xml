@@ -21,7 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".signup" />
-        <activity android:name=".personaltasklist" />
         <activity android:name=".discussionboard" />
         <activity android:name=".account" />
 

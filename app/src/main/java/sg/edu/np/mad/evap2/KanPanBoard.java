@@ -13,7 +13,11 @@ public class KanPanBoard {
         this.KpTitle = title;
     }
 
-    public List<Task> getTaskList() {
+    public KanPanBoard() {
+
+    }
+
+    public ArrayList<Task> getTaskList() {
         return TaskList;
     }
 

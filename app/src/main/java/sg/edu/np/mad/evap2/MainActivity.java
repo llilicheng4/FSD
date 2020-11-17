@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
     //intents for navigation items
     public void tvTasklistClick(View view){
-        Intent i = new Intent(MainActivity.this, personaltasklist.class);
+        Intent i = new Intent(MainActivity.this, ViewPersonalTaskList.class);
         startActivity(i);
     }
 }

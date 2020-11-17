@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,11 +21,12 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
+
     }
 
     public void ClickMenu(View view) {
         //open drawer
-        openDrawer(drawerLayout);
+        MainActivity.openDrawer(drawerLayout);
     }
 
     private static void openDrawer(DrawerLayout drawerLayout) {
@@ -40,7 +43,18 @@ public class MainActivity extends AppCompatActivity {
 
     //intents for navigation items
     public void tvTasklistClick(View view){
-        Intent i = new Intent(MainActivity.this, ViewPersonalTaskList.class);
-        startActivity(i);
+        redirectActivity(this, personaltasklist.class);
+    }
+
+    public void tvDiscussionClick(View view){
+        redirectActivity(this, discussionboard.class);
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass){
+        Intent intent = new Intent(activity,aClass);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        activity.startActivity(intent);
     }
 }

@@ -24,6 +24,13 @@
         <activity android:name=".discussionboard" />
         <activity android:name=".account" />
 
+        <activity android:name=".creategrp">
+
+        </activity>
+
+        <activity android:name=".grpchat">
+
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

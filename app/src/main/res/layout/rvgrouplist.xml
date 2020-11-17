@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvgrpname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/quicksand"
+        android:text="Group name"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvgrpdesc"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:fontFamily="@font/quicksand"
+        android:text="group description"
+        android:textSize="17sp" />
+</LinearLayout>

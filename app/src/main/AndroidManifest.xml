@@ -13,10 +13,7 @@
             android:parentActivityName=".groupinfo"></activity>
         <activity android:name=".groupinfo" />
         <activity android:name=".CreateTask" />
-        <activity android:name=".ViewPersonalTaskList" />
         android:theme="@style/AppTheme" >
-        <activity android:name=".CreateTask" >
-        </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".login">
             <intent-filter>

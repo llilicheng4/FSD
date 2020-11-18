@@ -68,8 +68,10 @@ public class CategoryFragment extends Fragment {
 
         //Get required data
         final String email = getActivity().getIntent().getStringExtra("email");
+
         final UserModel user = new UserModel();
         user.setEmail(email);
+        Log.d(TAG, ": "+ user.getEmail());
         final ArrayList<CategoryModel> categoryModels = dbHandler.getUserCategories(email);
         user.setCategories(categoryModels);
 
@@ -95,6 +97,7 @@ public class CategoryFragment extends Fragment {
                 final CategoryModel categoryModel = new CategoryModel(categoryModels.size()+1, "new title");
                 //Update current project data
                 dbHandler.addCatToUser(user, categoryModel);
+
                 user.getCategories().clear();
                 user.getCategories().addAll(dbHandler.getUserCategories(user.getEmail()));
                 Log.d(TAG, ": "+ dbHandler.getUserCategories(user.getEmail()).toString());

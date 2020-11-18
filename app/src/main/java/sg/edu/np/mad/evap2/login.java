@@ -52,6 +52,8 @@ public class login extends AppCompatActivity {
                 if (mFirebaseUser != null) {
                     Toast.makeText(login.this,"You are logged in", Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(login.this, MainActivity.class);
+                    String email = mFirebaseUser.getEmail();
+                    i.putExtra("email", email);
                     startActivity(i);
 
                 }

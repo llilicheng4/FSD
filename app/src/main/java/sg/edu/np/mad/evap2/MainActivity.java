@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         redirectActivity(this, login.class);
     }
+    public void tvModulesClick(View view){};
 
     public static void redirectActivity(Activity activity, Class aClass) {
         Intent intent = new Intent(activity, aClass);

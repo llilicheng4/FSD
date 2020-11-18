@@ -1,8 +1,8 @@
 package sg.edu.np.mad.evap2;
 
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class CategoryViewHolder extends RecyclerView.ViewHolder{
 
     public RecyclerView taskRecyclerView;
-    public EditText categoryName;
+    public TextView categoryName;
     public ImageView categoryDelete, categoryAdd;
 
     public CategoryViewHolder(@NonNull View itemView) {

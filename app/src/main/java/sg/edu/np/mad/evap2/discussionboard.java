@@ -34,10 +34,10 @@ public class discussionboard extends AppCompatActivity {
     RecyclerView grprv, forumrv;
     RecyclerView.LayoutManager layoutManager;
 
-    DatabaseReference ref;
+    DatabaseReference ref, eref;
     FirebaseAuth mauth;
 
-    String currentuserid;
+    String currentuserid, currentemail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +53,13 @@ public class discussionboard extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         grprv.setLayoutManager(layoutManager);
 
-        ref = FirebaseDatabase.getInstance().getReference().child("Groups");
-
         mauth = FirebaseAuth.getInstance();
 
         currentuserid = mauth.getCurrentUser().getUid();
+        currentemail = mauth.getCurrentUser().getEmail();
+
+        ref = FirebaseDatabase.getInstance().getReference().child("Groups");
+        eref = FirebaseDatabase.getInstance().getReference().child("Groups");
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,9 +105,11 @@ public class discussionboard extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+        String fbemail = currentemail.replace(".","_");
+
         FirebaseRecyclerOptions options =
                 new FirebaseRecyclerOptions.Builder<Group>()
-                .setQuery(ref, Group.class)
+                .setQuery(eref.orderByChild(fbemail).equalTo(currentemail), Group.class)
                 .build();
 
         FirebaseRecyclerAdapter<Group, GroupsViewHolder> adapter
@@ -128,6 +132,7 @@ public class discussionboard extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 Intent intent = new Intent(discussionboard.this, grpchat.class);
+
                                 intent.putExtra("groupname", itemText);
                                 startActivity(intent);
                             }
@@ -165,6 +170,23 @@ public class discussionboard extends AppCompatActivity {
             grpname = itemView.findViewById(R.id.tvgrpname);
             grpdesc = itemView.findViewById(R.id.tvgrpdesc);
         }
+    }
+
+    private void Getemail(String uid) {
+        eref.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                   currentemail  = snapshot.child("email").getValue().toString();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
 }

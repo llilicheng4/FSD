@@ -1,14 +1,13 @@
 package sg.edu.np.mad.evap2;
 
-import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Display;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
@@ -17,8 +16,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -43,12 +42,15 @@ public class grpchat extends AppCompatActivity {
     FirebaseAuth mauth;
     DatabaseReference uref, grpnameref, grpmsgkeyref;
 
-    String currentUserID, currentUsername, currentDate, currentTime;
+    String currentUserID, currentUsername, currentDate, currentTime,grpname;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.groupchat);
 
+        Toolbar toolbar = findViewById(R.id.grpnamebar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Study group");
         groupname = findViewById(R.id.tvStudygrpname);
         displaymsg = findViewById(R.id.tvgrpchatdisplay);
         sendmsg = findViewById(R.id.etMessage);
@@ -57,7 +59,7 @@ public class grpchat extends AppCompatActivity {
 
         scrollview = findViewById(R.id.scrollview);
 
-        String grpname = getIntent().getStringExtra("groupname");
+        grpname = getIntent().getStringExtra("groupname");
 
         //Firebase stuff
         mauth = FirebaseAuth.getInstance();
@@ -78,6 +80,29 @@ public class grpchat extends AppCompatActivity {
                 scrollview.fullScroll(ScrollView.FOCUS_DOWN);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.stdygrpmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.grpInfo:
+                Intent i = new Intent(grpchat.this, groupinfo.class);
+                i.putExtra("groupname", grpname);
+                startActivity(i);
+                return true;
+            case R.id.setting:
+                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void GetUsername(String uid) {

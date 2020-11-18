@@ -121,5 +121,6 @@ public class signup extends AppCompatActivity {
         ref.child("users").child(userid).child("username").setValue(username);
         ref.child("users").child(userid).child("email").setValue(email);
         ref.child("users").child(userid).child("password").setValue(pwd);
+        ref.child("users").child(userid).child("uid").setValue(userid);
     }
 }

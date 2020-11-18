@@ -9,6 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+
+
 public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;

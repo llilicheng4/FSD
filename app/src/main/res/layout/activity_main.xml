@@ -16,23 +16,10 @@
         <include
             layout="@layout/main_toolbar"></include>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
+            android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <EditText
-                android:id="@+id/etSearch"
-                android:layout_width="300dp"
-                android:layout_height="43dp"
-                android:layout_marginTop="100dp"
-
-                android:background="@drawable/boxshape"
-                android:ems="10"
-                android:hint="Search"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

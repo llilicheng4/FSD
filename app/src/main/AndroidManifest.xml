@@ -14,6 +14,9 @@
         <activity android:name=".groupinfo" />
         <activity android:name=".CreateTask" />
         <activity android:name=".ViewPersonalTaskList" />
+        android:theme="@style/AppTheme" >
+        <activity android:name=".CreateTask" >
+        </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".login">
             <intent-filter>
@@ -23,7 +26,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".signup" />
-        <activity android:name=".personaltasklist" />
         <activity android:name=".discussionboard" />
         <activity android:name=".account" />
         <activity android:name=".creategrp" />

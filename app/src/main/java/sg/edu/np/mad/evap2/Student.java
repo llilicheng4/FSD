@@ -1,7 +1,6 @@
 package sg.edu.np.mad.evap2;
 
-public class Student extends UserData {
-private KanPanBoard kanPanBoard;
+public class Student extends UserModel {
 private TimeTable timeTable;
 
 public Student(){};
@@ -30,29 +29,11 @@ public Student(){};
         super.setPassword(password);
     }
 
-    @Override
-    public String getUsername() {
-        return super.getUsername();
-    }
-
-    @Override
-    public void setUsername(String username) {
-        super.setUsername(username);
-    }
-
     public TimeTable getTimeTable() {
         return timeTable;
     }
 
     public void setTimeTable(TimeTable timeTable) {
         this.timeTable = timeTable;
-    }
-
-    public KanPanBoard getKanPanBoard() {
-        return kanPanBoard;
-    }
-
-    public void setKanPanBoard(KanPanBoard kanPanBoard) {
-        this.kanPanBoard = kanPanBoard;
     }
 }

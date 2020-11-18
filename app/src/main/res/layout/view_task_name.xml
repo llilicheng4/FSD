@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateTask"
+    tools:layout_editor_absoluteY="25dp">
+  <LinearLayout
+      android:id="@+id/linearLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#1A6D46"
+      android:gravity="center_vertical"
+      android:orientation="horizontal"
+      android:padding="12dp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:onClick="ClickMenu"
+        app:srcCompat="@drawable/backarrow"></ImageView>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/quicksand"
+        android:text="Task name"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+  </LinearLayout>
+
+  <EditText
+      android:id="@+id/task_descri"
+      android:layout_width="314dp"
+      android:layout_height="91dp"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="132dp"
+      android:gravity="top"
+      android:text="@string/task_descri"
+      android:textAppearance="@style/task_descri"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.515"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/currentPriority"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:layout_marginStart="48dp"
+      android:layout_marginBottom="392dp"
+      android:background="@drawable/bg_layer3"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
+
+  <TextView
+      android:id="@+id/taskPriorityNotImpt"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:layout_marginStart="12dp"
+      android:layout_marginBottom="392dp"
+      android:background="@drawable/bg_notimpt"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/currentPriority" />
+
+  <TextView
+      android:id="@+id/taskPriorityImpt"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:layout_marginStart="12dp"
+      android:layout_marginBottom="392dp"
+      android:background="@drawable/bg_impt"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/taskPriorityNotImpt" />
+
+  <TextView
+      android:id="@+id/taskPriorityVeryImpt"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:layout_marginStart="12dp"
+      android:layout_marginBottom="392dp"
+      android:background="@drawable/bg_veryimpt"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/taskPriorityImpt" />
+
+  <TextView
+      android:id="@+id/change_remi"
+      android:layout_width="105dp"
+      android:layout_height="15dp"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginEnd="56dp"
+      android:layout_marginBottom="400dp"
+      android:gravity="center_horizontal|center_vertical"
+      android:text="Change Reminder"
+      android:textAppearance="@style/change_remi"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
+
+  <View
+      android:id="@+id/rectangle_7"
+      android:layout_width="108dp"
+      android:layout_height="18dp"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginEnd="56dp"
+      android:layout_marginBottom="396dp"
+      android:background="@drawable/changereminderbox"
+      android:elevation="4dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="315dp"
+      android:layout_height="371dp"
+      android:layout_marginBottom="0dp"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.515"
+      app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

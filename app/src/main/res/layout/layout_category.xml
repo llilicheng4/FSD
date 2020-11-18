@@ -19,11 +19,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/categoryAdd"
+        app:layout_constraintTop_toBottomOf="@+id/deleteKanpan"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
-        android:id="@+id/categoryAdd"
+        android:id="@+id/deleteKanpan"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_alignParentTop="true"
@@ -35,7 +35,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/personal_ta"
+        android:id="@+id/personal_task"
         android:layout_width="108dp"
         android:layout_height="23dp"
         android:layout_alignParentLeft="true"
@@ -47,5 +47,17 @@
         android:textAppearance="@style/note_title"
         app:layout_constraintBottom_toTopOf="@+id/taskRecyclerView"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/addTask"
+        android:layout_width="26dp"
+        android:layout_height="21dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="68dp"
+        android:src="@drawable/add_ic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package sg.edu.np.mad.evap2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,7 +64,7 @@ public class signup extends AppCompatActivity {
                     Toast.makeText(signup.this, "Password must be the same.", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    final UserData userdata = new UserData(username, email, pwd);
+                    final UserModel userdata = new UserModel(username, email, pwd);
                     mAuth.createUserWithEmailAndPassword(email, pwd)
                             .addOnCompleteListener(signup.this, new OnCompleteListener<AuthResult>() {
                                 @Override

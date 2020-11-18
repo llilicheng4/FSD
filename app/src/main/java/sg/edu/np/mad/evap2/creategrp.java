@@ -2,6 +2,9 @@ package sg.edu.np.mad.evap2;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -13,14 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class creategrp extends AppCompatActivity {
 
@@ -28,11 +29,15 @@ public class creategrp extends AppCompatActivity {
 
     FloatingActionButton addgrp;
 
-    DatabaseReference ref;
+    DatabaseReference ref, uref;
+    FirebaseAuth mauth;
+
+    String currentUserID, currentUsername;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_grp);
+
 
         grpname = findViewById(R.id.etGrpname);
         grpdesc = findViewById(R.id.etGrpdesc);
@@ -40,6 +45,13 @@ public class creategrp extends AppCompatActivity {
         addgrp = findViewById(R.id.fabCreategrp);
 
         ref = FirebaseDatabase.getInstance().getReference();
+        uref = FirebaseDatabase.getInstance().getReference().child("users");
+
+        mauth = FirebaseAuth.getInstance();
+
+        currentUserID = mauth.getCurrentUser().getUid();
+
+        GetUsername(currentUserID);
 
         addgrp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,14 +64,36 @@ public class creategrp extends AppCompatActivity {
                     Toast.makeText(creategrp.this, "Fields cannot be empty.", Toast.LENGTH_LONG).show();
                 }
                 else{
-                    CreateNewGrp(name, desc);
+                    CreateNewGrp(name, desc, currentUserID);
                 }
             }
 
 
         });
     }
-    private void CreateNewGrp(final String n, final String d) {
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.stdygrpmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.grpInfo:
+                Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.setting:
+                Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void CreateNewGrp(final String n, final String d, final String uid) {
         ref.child("Groups").child(n).setValue("")
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -67,10 +101,28 @@ public class creategrp extends AppCompatActivity {
                         if(task.isSuccessful()){
                             ref.child("Groups").child(n).child("name").setValue(n);
                             ref.child("Groups").child(n).child("description").setValue(d);
+                            ref.child("Groups").child(n).child(currentUsername.replace(".","_")).setValue(currentUsername);
                             Toast.makeText(creategrp.this, "Study group created!", Toast.LENGTH_LONG).show();
                         }
                     }
                 });
 
+    }
+
+    private void GetUsername(String uid) {
+        uref.child(uid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    currentUsername = snapshot.child("email").getValue().toString();
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

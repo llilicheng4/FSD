@@ -88,7 +88,7 @@ public class discussionboard extends AppCompatActivity {
 
     //intents for navigation items
     public void tvTasklistClick(View view){
-        Intent i = new Intent(discussionboard.this, ProjectFragment.class);
+        Intent i = new Intent(discussionboard.this, CategoryFragment.class);
         startActivity(i);
     }
 

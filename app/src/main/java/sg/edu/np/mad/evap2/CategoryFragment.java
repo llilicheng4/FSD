@@ -2,6 +2,7 @@ package sg.edu.np.mad.evap2;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,10 +12,15 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class ProjectFragment extends Fragment {
+import java.util.ArrayList;
+
+public class CategoryFragment extends Fragment {
     /*
         Author: Zhao Yi
         Sections: All
@@ -45,12 +51,11 @@ public class ProjectFragment extends Fragment {
 
     //Declare variables
     private EditText projectName;
-    private ImageView projectIcon;
-    private ProjectModel projectData;
     private NavigationView navigationView;
     private CategoryAdapter adapter;
     private Context context;
     private DBHandler dbHandler;
+    private static String TAG = "Cat";
     View v;
 
     //1. OnCreateView
@@ -60,27 +65,22 @@ public class ProjectFragment extends Fragment {
         //Set reference to database
         dbHandler = new DBHandler(getActivity(), "PrOrganize.db", null, 1);
          v = inflater.inflate(R.layout.activity_view_personal_tasklist, container, false);
-/*
+
         //Get required data
-        Bundle bundle = getArguments();
-        //projectData = dbHandler.getProject(bundle.getInt("projectId"));
-
-        //Get view
-
+        final String email = getActivity().getIntent().getStringExtra("email");
+        final UserModel user = new UserModel();
+        user.setEmail(email);
+        final ArrayList<CategoryModel> categoryModels = dbHandler.getUserCategories(email);
+        user.setCategories(categoryModels);
 
         //Set reference to XML
         projectName = v.findViewById(R.id.newKanpanName);
         ImageView addCategory = v.findViewById(R.id.addKanpan);
         //navigationView = getActivity().findViewById(R.id.);
 
-        //Set data
-        context = getActivity();
-        projectName.setText(projectData.getTitle());
-        projectData.setCategories(dbHandler.getAllProjectCategories(projectData));
-
         //Set up recycler view to display categories with their tasks
         RecyclerView categoryRecyclerView = v.findViewById(R.id.kanPanRecyclerView);
-        adapter = new CategoryAdapter(context, projectData, dbHandler);
+        adapter = new CategoryAdapter(context, user, dbHandler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
 
         categoryRecyclerView.setLayoutManager(layoutManager);
@@ -92,15 +92,17 @@ public class ProjectFragment extends Fragment {
         addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final CategoryModel categoryModel = new CategoryModel(categoryModels.size()+1, "new title");
                 //Update current project data
-                dbHandler.addCategoryToProject(projectData.getProjectId(), "New Title");
-                projectData.getCategories().clear();
-                projectData.getCategories().addAll(dbHandler.getAllProjectCategories(projectData));
+                dbHandler.addCatToUser(user, categoryModel);
+                user.getCategories().clear();
+                user.getCategories().addAll(dbHandler.getUserCategories(user.getEmail()));
+                Log.d(TAG, ": "+ dbHandler.getUserCategories(user.getEmail()).toString());
+                Log.d(TAG, "onClick: "+user.getCategories().toString());
                 adapter.notifyDataSetChanged(); //Refresh recycler view
             }
         });
 
- */
         return v;
 
     }

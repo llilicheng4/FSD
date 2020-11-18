@@ -17,13 +17,13 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     //Declare variables
-    private ProjectModel projectData;
+    private UserModel projectData;
     private List<CategoryModel> categoryModelList;
     private DBHandler dbHandler;
     private Context context;
 
     //1. Constructor
-    public CategoryAdapter(Context context, ProjectModel projectData, DBHandler dbHandler) {
+    public CategoryAdapter(Context context, UserModel projectData, DBHandler dbHandler) {
         this.projectData = projectData;
         this.categoryModelList = projectData.getCategories();
         this.dbHandler = dbHandler;
@@ -80,7 +80,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
                 if (!hasFocus) {
                     CategoryModel category = ((CategoryModel) v.getTag());
                     category.setTitle(((EditText) v).getText().toString().trim());
-                    dbHandler.updateCategory(category, category.getTitle());
+                    dbHandler.updateProject(category);
                 }
             }
         });
@@ -101,7 +101,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int id) {
                         //Delete category from database and current project data
-                        dbHandler.deleteCategory(category.getCategoryId());
+                        dbHandler.deleteCat(category.getCategoryId());
                         projectData.getCategories().remove(category);
                         CategoryAdapter.this.notifyDataSetChanged(); //Refresh recycler view
                     }

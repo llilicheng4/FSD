@@ -75,7 +75,8 @@ public class signup extends AppCompatActivity {
                                         writeNewStudent(user.getUid(), username, email, pwd);
                                         Toast.makeText(signup.this, "Sign up successful", Toast.LENGTH_SHORT).show();
                                         login.userdata = userdata;
-                                        Intent mainpage = new Intent(signup.this, login.class);
+                                        Intent mainpage = new Intent(signup.this, MainActivity.class);
+                                        mainpage.putExtra("email", email);
                                         startActivity(mainpage);
                                     }
 

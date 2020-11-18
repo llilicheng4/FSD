@@ -26,7 +26,7 @@ public class login extends AppCompatActivity {
     TextView signUp;
     //create firebase object
     FirebaseAuth mFirebaseAuth;
-
+    public UserModel userModel;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +63,8 @@ public class login extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = emailId.getText().toString();
-                String pass = password.getText().toString();
+                final String email = emailId.getText().toString();
+                final String pass = password.getText().toString();
                 //check whether email is empty
                 if (email.isEmpty()) {
                     //set empty password error
@@ -90,6 +90,7 @@ public class login extends AppCompatActivity {
 
                             } else {
                                 Intent intToHome = new Intent(login.this, MainActivity.class);
+                                intToHome.putExtra("email", email);
                                 startActivity(intToHome);
                             }
                         }
@@ -106,6 +107,7 @@ public class login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent ChangeActivity = new Intent(login.this, signup.class);
+
                 startActivity(ChangeActivity);
 
             }

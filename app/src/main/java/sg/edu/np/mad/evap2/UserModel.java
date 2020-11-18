@@ -1,10 +1,11 @@
 package sg.edu.np.mad.evap2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class UserModel {
+public class UserModel implements Serializable {
     private String name, email, password;
-    private ArrayList<ProjectModel> projects;
+    private ArrayList<CategoryModel> categoryModels;
 
     //Constructors
     public UserModel() {
@@ -42,11 +43,11 @@ public class UserModel {
         this.password = password;
     }
 
-    public ArrayList<ProjectModel> getProjects() {
-        return projects;
+    public ArrayList<CategoryModel> getCategories() {
+        return categoryModels;
     }
 
-    public void setProjects(ArrayList<ProjectModel> projects) {
-        this.projects = projects;
+    public void setCategories(ArrayList<CategoryModel> categoryModels) {
+        this.categoryModels = categoryModels;
     }
 }

@@ -15,14 +15,14 @@ import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
     //Declare variables
-    private ProjectModel projectData;
+    private UserModel projectData;
     private CategoryModel categoryData;
     private List<TaskModel> taskModelList;
     private DBHandler dbHandler;
     private Context context;
 
     //1. Constructor
-    public TaskAdapter(Context context, ProjectModel projectData, CategoryModel categoryData, DBHandler dbHandler) {
+    public TaskAdapter(Context context, UserModel projectData, CategoryModel categoryData, DBHandler dbHandler) {
         this.projectData = projectData;
         this.categoryData = categoryData;
         this.taskModelList = categoryData.getTasks();
@@ -84,7 +84,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
 
                 //Display task fragment
                 Bundle bundle = new Bundle();
-                bundle.putInt("projectId", projectData.getProjectId()); //Required data to identify project
+                bundle.putString("projectId", projectData.getEmail()); //Required data to identify project
                 bundle.putInt("categoryId", categoryData.getCategoryId());
                 bundle.putInt("taskId", task.getTaskId());
 

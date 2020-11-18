@@ -5,53 +5,44 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static final String databaseName = "PrOrganize.db";
-    private static final int databaseVersion = 1;
+    private static final String FILENAME = "MyDBHandler.java";
+    private static final String TAG = "evaDB";
+    public static String DATABASE_NAME = "PrOrganize.db";
+    public static int DATABASE_VERSION = 1;
+    //KANPAN
+    private static final String CAT = "cat";
+    private static final String CAT_TITLE = "Title";
+    private static final String COLUMN_USEREMAIL = "UserMail";
+    //TASKS
+    private static final String TASKS = "Tasks";
+    private static final String COLUMN_TASKID = "TaskID";
+    private static final String COLUMN_TASKDESC = "TaskDesc";
+    private static final String COLUMN_TASKTITLE = "TaskTitle";
+    private static final String COLUMN_TASKCONTENT = "TaskContent";
+    private static final String COLUMN_PRIORITY = "Priority";
+    private static final String COLUMN_CATID = "CatId";
 
-    //UserModel
-    private static final String accountsTable = "Accounts";
-    private static final String accountsUsernameColumn = "Username";
-    private static final String accountsPasswordColumn = "Password";
-    private static final String accountsEmailColumn = "Email";
+    //NOTES
+    private static final String NOTES = "Notes";
+    private static final String NOTE_ID = "NoteID";
+    private static final String NOTE_DESC = "NoteDesc";
 
-    //ProjectModel
-    private static final String projectsTable = "Projects";
-    private static final String projectsIdColumn = "ProjectID";
-    private static final String projectsTitleColumn = "ProjectTitle";
-    private static final String projectsIconColumn = "Image";
-
-    //CategoryModel
-    private static final String categoryTable = "Category";
-    private static final String categoryIdColumn = "CategoryID";
-    private static final String categoryTitleColumn = "CategoryTitle";
-
-    //TaskModel
-    private static final String taskTable = "Task";
-    private static final String taskIdColumn = "TaskID";
-    private static final String taskTitleColumn = "TaskTitle";
-    private static final String taskDescriptionColumn = "TaskDescription";
-    private static final String taskPriorityColumn = "TaskPriority";
-
-    //NoteModel
-    private static final String noteTable = "Note";
-    private static final String noteIdColumn = "NoteID";
-    private static final String noteDescriptionColumn = "NoteDescription";
 
     //Constructor
     public DBHandler(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, databaseName, factory, databaseVersion);
+        super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
     //1. OnOpen
     @Override
     public void onOpen(SQLiteDatabase db){
         super.onOpen(db);
-        db.execSQL("PRAGMA foreign_keys=ON"); //Enables foreign key constraints
     }
 
     //1. OnCreate
@@ -59,233 +50,84 @@ public class DBHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         //On Delete Cascade refers to the fact that if a row of data is deleted, all data rows containing
         //the deleted data row's primary key as a foreign key will also be deleted.
-        String CREATE_Accounts_TABLE = "CREATE TABLE " + accountsTable +
-                "(" + accountsUsernameColumn + " TEXT NOT NULL," +
-                accountsPasswordColumn + " TEXT NOT NULL," +
-                accountsEmailColumn + " TEXT NOT NULL," +
-                "PRIMARY KEY (" + accountsUsernameColumn + ")" +
-                ");";
-        db.execSQL(CREATE_Accounts_TABLE);
 
-        String CREATE_Projects_TABLE = "CREATE TABLE " + projectsTable +
-                "(" + projectsIdColumn + " INTEGER NOT NULL," +
-                accountsUsernameColumn + " TEXT NOT NULL," +
-                projectsTitleColumn + " TEXT NOT NULL," +
-                projectsIconColumn + " BLOB," +
-                "PRIMARY KEY (" + projectsIdColumn + ")," +
-                "FOREIGN KEY (" + accountsUsernameColumn + ") REFERENCES " + accountsTable + "(" +
-                accountsUsernameColumn + ") ON DELETE CASCADE ON UPDATE NO ACTION" +
-                ");";
-        db.execSQL(CREATE_Projects_TABLE);
+        String CREATE_TASK_TABLE = "CREATE TABLE " + TASKS +
+                "(" + COLUMN_TASKID + " INTEGER," +
+                COLUMN_CATID+ " INTEGER," +
+                COLUMN_TASKTITLE + " TEXT," +
+                COLUMN_TASKDESC + " TEXT," +
+                COLUMN_PRIORITY + " TEXT" + ")";
 
-        String CREATE_Category_TABLE = "CREATE TABLE " + categoryTable +
-                "(" + categoryIdColumn + " INTEGER NOT NULL," +
-                projectsIdColumn + " INTEGER NOT NULL," +
-                categoryTitleColumn + " TEXT NOT NULL," +
-                "PRIMARY KEY (" + categoryIdColumn + ")," +
-                "FOREIGN KEY (" + projectsIdColumn + ") REFERENCES " + projectsTable + "(" +
-                projectsIdColumn + ") ON DELETE CASCADE ON UPDATE NO ACTION" +
-                ");";
-        db.execSQL(CREATE_Category_TABLE);
+        db.execSQL(CREATE_TASK_TABLE);
 
-        String CREATE_Task_TABLE = "CREATE TABLE " + taskTable +
-                "(" + taskIdColumn + " INTEGER NOT NULL," +
-                categoryIdColumn + " INTEGER NOT NULL," +
-                taskTitleColumn + " TEXT NOT NULL," +
-                taskDescriptionColumn + " TEXT NOT NULL," +
-                taskPriorityColumn + " TEXT NOT NULL," +
-                "PRIMARY KEY (" + taskIdColumn + ")," +
-                "FOREIGN KEY (" + categoryIdColumn + ") REFERENCES " + categoryTable + "(" +
-                categoryIdColumn + ") ON DELETE CASCADE ON UPDATE NO ACTION" +
-                ");";
-        db.execSQL(CREATE_Task_TABLE);
+        String CREATE_KANPANTABLE = "CREATE TABLE " + CAT +
+                "(" + COLUMN_CATID + " INTEGER," +
+                CAT_TITLE + " TEXT," +
+                COLUMN_USEREMAIL + " TEXT" + ")";
 
-        String CREATE_Note_TABLE = "CREATE TABLE " + noteTable +
-                "(" + noteIdColumn + " INTEGER NOT NULL," +
-                taskIdColumn + " INTEGER NOT NULL," +
-                noteDescriptionColumn + " TEXT NOT NULL," +
-                "PRIMARY KEY (" + noteIdColumn + ")," +
-                "FOREIGN KEY (" + taskIdColumn + ") REFERENCES " + taskTable + "(" +
-                taskIdColumn + ") ON DELETE CASCADE ON UPDATE NO ACTION" +
-                ");";
+        db.execSQL(CREATE_KANPANTABLE);
+
+        String CREATE_Note_TABLE = "CREATE TABLE " + NOTES +
+                "(" + NOTE_ID + " INTEGER," +
+                NOTE_DESC + " TEXT," +
+                COLUMN_TASKID + " INTEGER"+ ")";
         db.execSQL(CREATE_Note_TABLE);
     }
 
     //2. OnUpgrade
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + accountsTable);
-        db.execSQL("DROP TABLE IF EXISTS " + projectsTable);
-        db.execSQL("DROP TABLE IF EXISTS " + categoryTable);
-        db.execSQL("DROP TABLE IF EXISTS " + taskTable);
-        db.execSQL("DROP TABLE IF EXISTS " + noteTable);
+        db.execSQL("DROP TABLE IF EXISTS " + TASKS);
+        db.execSQL("DROP TABLE IF EXISTS " + CAT);
+        db.execSQL("DROP TABLE IF EXISTS " + NOTES);
         onCreate(db);
     }
 
-    //------------User
-    //3. Add new user
-    /*public void addUser(UserModel userData) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(accountsUsernameColumn, userData.getName());
-        values.put(accountsPasswordColumn, userData.getPassword());
-        values.put(accountsEmailColumn, userData.getEmail());
-
-        db.insert(accountsTable, null, values);
-
-        db.close();
-    }
-
-    //4. Get user
-    public UserModel getUser(String username) {
-        String query = "SELECT * FROM " + accountsTable + " WHERE " +
-                accountsUsernameColumn + " = \"" + username + "\"";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return null;
-        }
-
-        String password = cursor.getString(1);
-        String email = cursor.getString(2);
-
-        cursor.close();
-        db.close();
-        UserModel queryData = new UserModel(username, password, email);
-        return queryData;
-    }
-
-    //5. Validate user
-    public boolean validateUser(String username) {
-        String query = "SELECT * FROM " + accountsTable + " WHERE " +
-                accountsUsernameColumn + " = \"" + username + "\"";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return false;
-        } else {
-            cursor.close();
-            db.close();
-            return true;
-        }
-    }
-
-    //6. Authenticate password
-    public boolean authenticatePassword(String username, String password) {
-        String query = "SELECT * FROM " + accountsTable + " WHERE " +
-                accountsUsernameColumn + " = \"" + username + "\"" + " AND " +
-                accountsPasswordColumn + " = \"" + password + "\"";
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return false;
-        } else {
-            cursor.close();
-            db.close();
-            return true;
-        }
-    }
-
-    //7. Update user details
-    public void updateUser(UserModel userData, String password, String email) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(accountsPasswordColumn, password);
-        values.put(accountsEmailColumn, email);
-        db.update(accountsTable, values, accountsUsernameColumn + "=\"" + userData.getName() + "\"", null);
-    }
-    */
-
-
     //------------Project
     //8. Get user's projects
-    public ArrayList<ProjectModel> getAllUserProjects(UserModel user) {
-        String query = "SELECT * FROM " + projectsTable + " WHERE " +
-                accountsUsernameColumn + " = \"" + user.getName() + "\"";
+    public ArrayList<CategoryModel> getUserCategories(String email) {
+        String query = "SELECT * FROM " + CAT + " WHERE " +
+                COLUMN_USEREMAIL + " = \"" + email + "\"";
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
+
         Cursor cursor = db.rawQuery(query, null);
 
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return null;
-        }
+        CategoryModel queryData = new CategoryModel();
 
-        ArrayList<ProjectModel> queryData = new ArrayList<>();
-        do {
-            Integer id = cursor.getInt(0);
-            String projectTitle = cursor.getString(2);
-            if (cursor.getBlob(3) != null) {
-                queryData.add(new ProjectModel(id, user.getName(), projectTitle, cursor.getBlob(3)));
-            } else {
-                queryData.add(new ProjectModel(id, user.getName(), projectTitle));
-            }
-        } while (cursor.moveToNext());
+        ArrayList<CategoryModel> KanPanList = new ArrayList<CategoryModel>();
+
+        if(cursor.moveToFirst()){
+            do{
+                queryData.setCategoryId(cursor.getInt(0));
+                queryData.setTitle(cursor.getString(1));
+                KanPanList.add(queryData);
+            }while(cursor.moveToNext());
+        }
 
         cursor.close();
         db.close();
-        return queryData;
+        return KanPanList;
     }
 
     //9. Add new project
-    public void addProjectToUser(String username, String title, byte[] image) {
+    public void addCatToUser(UserModel userModel, CategoryModel categoryModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(accountsUsernameColumn, username);
-        values.put(projectsTitleColumn, title);
-        if (image != null) {
-            values.put(projectsIconColumn, image);
-        }
-        db.insert(projectsTable, null, values);
+        values.put(COLUMN_USEREMAIL, userModel.getEmail());
+        values.put(CAT_TITLE, categoryModel.getTitle());
+        values.put(COLUMN_CATID, categoryModel.getCategoryId());
+        db.insert(CAT, null, values);
+        Log.d(TAG, "addCatToUser: "+ userModel.getEmail() + categoryModel.getTitle()+ categoryModel.getCategoryId());
         db.close();
     }
 
-    //10. Get project
-    public ProjectModel getProject(Integer projectId) {
-        String query = "SELECT * FROM " + projectsTable + " WHERE " +
-                projectsIdColumn + " = " + projectId;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return null;
-        }
-
-        ProjectModel queryData;
-        String name = cursor.getString(1);
-        String projectTitle = cursor.getString(2);
-        if (cursor.getBlob(3) != null) {
-            queryData = new ProjectModel(projectId, name, projectTitle, cursor.getBlob(3));
-        } else {
-            queryData = (new ProjectModel(projectId, name, projectTitle));
-        }
-
-        cursor.close();
-        db.close();
-        return queryData;
-    }
 
     //11. Delete project
-    public void deleteProject(Integer projectId) {
-        String query = "SELECT * FROM " + projectsTable + " WHERE " +
-                projectsIdColumn + " = \"" + projectId + "\"";
+    public void deleteCat(Integer catID) {
+        String query = "SELECT * FROM " + CAT + " WHERE " +
+                COLUMN_CATID + " = \"" + catID + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -295,7 +137,7 @@ public class DBHandler extends SQLiteOpenHelper {
             db.close();
         } else {
             do {
-                db.delete(projectsTable, projectsIdColumn + " =" + projectId,
+                db.delete(CAT, COLUMN_CATID + " =" + catID,
                         null);
             } while (cursor.moveToNext());
 
@@ -305,115 +147,20 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
     //12. Update project details
-    public void updateProject(ProjectModel projectData, String title, byte[] image) {
+    public void updateProject(CategoryModel newData) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(projectsTitleColumn, title);
-        if (image != null) {
-            values.put(projectsIconColumn, image);
-        }
-        db.update(projectsTable, values, projectsIdColumn + "=" + projectData.getProjectId(), null);
+        values.put(CAT_TITLE, newData.getTitle());
+        db.update(CAT, values, COLUMN_CATID + "=" + newData.getCategoryId(), null);
     }
 
-    //------------Categories
-    //13. Get project's categories
-    public ArrayList<CategoryModel> getAllProjectCategories(ProjectModel project) {
-        String query = "SELECT * FROM " + categoryTable + " WHERE " +
-                projectsIdColumn + " = \"" + project.getProjectId() + "\"";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return null;
-        }
-
-        ArrayList<CategoryModel> queryData = new ArrayList<>();
-        do {
-            Integer id = cursor.getInt(0);
-            String categoryTitle = cursor.getString(2);
-            queryData.add(new CategoryModel(id, project.getProjectId(), categoryTitle));
-        } while (cursor.moveToNext());
-
-        cursor.close();
-        db.close();
-        return queryData;
-    }
-
-    //14. Add new category
-    public void addCategoryToProject(Integer projectId, String title) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(projectsIdColumn, projectId);
-        values.put(categoryTitleColumn, title);
-        db.insert(categoryTable, null, values);
-        db.close();
-    }
-
-    //15. Get category
-    public CategoryModel getCategory(Integer categoryId) {
-        String query = "SELECT * FROM " + categoryTable + " WHERE " +
-                categoryIdColumn + " = " + categoryId;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return null;
-        }
-
-        CategoryModel queryData;
-        Integer id = cursor.getInt(1);
-        String categoryTitle = cursor.getString(2);
-        queryData = new CategoryModel(categoryId, id, categoryTitle);
-
-        cursor.close();
-        db.close();
-        return queryData;
-    }
-
-    //16. Delete category
-    public void deleteCategory(Integer categoryId) {
-        String query = "SELECT * FROM " + categoryTable + " WHERE " +
-                categoryIdColumn + " = \"" + categoryId + "\"";
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-        } else {
-            do {
-                db.delete(categoryTable, categoryIdColumn + " =" + categoryId,
-                        null);
-            } while (cursor.moveToNext());
-
-            cursor.close();
-            db.close();
-        }
-    }
-
-    //17. Update category details
-    public void updateCategory(CategoryModel categoryData, String title) {
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(categoryTitleColumn, title);
-        db.update(categoryTable, values, categoryIdColumn + "=" + categoryData.getCategoryId(), null);
-    }
 
     //------------Tasks
     //18. Get category's tasks
     public ArrayList<TaskModel> getAllCategoryTask(CategoryModel category) {
-        String query = "SELECT * FROM " + taskTable + " WHERE " +
-                categoryIdColumn + " = \"" + category.getCategoryId() + "\"";
+        String query = "SELECT * FROM " + TASKS + " WHERE " +
+                COLUMN_CATID + " = \"" + category.getCategoryId() + "\"";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -438,65 +185,23 @@ public class DBHandler extends SQLiteOpenHelper {
         return queryData;
     }
 
-    //19. Get all priority tasks
-    public ArrayList<TaskModel> getAllPriorityTask(UserModel user) {
-        /*
-            Subquery description:
-            The 4th select in the query gets a list of project rows with a specific userId attached.
-            The 3rd select in the query gets a list of category rows with project Ids that are in the previous list.
-            The 2nd select in the query gets a list of task rows with category Ids that are in the previous list.
-            The 1st select in the query gets a list of task rows with task Ids that are in the previous list
-            and also have a priority of "VeryImpt".
-
-            The use of a subquery ensures that no unnecessary data is stored or accessed through inner joins or
-            storing in Models.
-        */
-        String query = "SELECT * FROM " + taskTable + " WHERE " + taskPriorityColumn + " = \"" + "VeryImpt" + "\" AND " +
-                taskIdColumn + " IN ( SELECT " + taskIdColumn + " FROM " + taskTable + " WHERE " +
-                categoryIdColumn + " IN ( SELECT " + categoryIdColumn + " FROM " + categoryTable + " WHERE " +
-                projectsIdColumn + " IN ( SELECT " + projectsIdColumn + " FROM " + projectsTable + " WHERE " + accountsUsernameColumn + " = \"" + user.getName() + "\"" + ")))";
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(query, null);
-
-        if (!cursor.moveToFirst()) {
-            cursor.close();
-            db.close();
-            return null;
-        }
-
-        ArrayList<TaskModel> queryData = new ArrayList<>();
-        do {
-            Integer id = cursor.getInt(0);
-            Integer categoryId = cursor.getInt(1);
-            String taskTitle = cursor.getString(2);
-            String taskDescription = cursor.getString(3);
-            String taskPriority = cursor.getString(4);
-            queryData.add(new TaskModel(id, categoryId, taskTitle, taskDescription, taskPriority));
-        } while (cursor.moveToNext());
-
-        cursor.close();
-        db.close();
-        return queryData;
-    }
-
     //20. Add task
     public void addTaskToCategory(Integer categoryId, String title, String description, String priority) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(categoryIdColumn, categoryId);
-        values.put(taskTitleColumn, title);
-        values.put(taskDescriptionColumn, description);
-        values.put(taskPriorityColumn, priority);
-        db.insert(taskTable, null, values);
+        values.put(COLUMN_CATID, categoryId);
+        values.put(COLUMN_TASKTITLE, title);
+        values.put(COLUMN_TASKDESC, description);
+        values.put(COLUMN_PRIORITY, priority);
+        db.insert(TASKS, null, values);
         db.close();
     }
 
     //21. Get task
     public TaskModel getTask(Integer taskId) {
-        String query = "SELECT * FROM " + taskTable + " WHERE " +
-                taskIdColumn + " = " + taskId;
+        String query = "SELECT * FROM " + TASKS + " WHERE " +
+                TASKS + " = " + taskId;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -521,8 +226,8 @@ public class DBHandler extends SQLiteOpenHelper {
 
     //22. Delete task
     public void deleteTask(Integer taskId) {
-        String query = "SELECT * FROM " + taskTable + " WHERE " +
-                taskIdColumn + " = \"" + taskId + "\"";
+        String query = "SELECT * FROM " + TASKS + " WHERE " +
+                COLUMN_TASKID + " = \"" + taskId + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -532,7 +237,7 @@ public class DBHandler extends SQLiteOpenHelper {
             db.close();
         } else {
             do {
-                db.delete(taskTable, taskIdColumn + " =" + taskId,
+                db.delete(TASKS, COLUMN_TASKID + " =" + taskId,
                         null);
             } while (cursor.moveToNext());
 
@@ -546,18 +251,18 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(categoryIdColumn, categoryId);
-        values.put(taskTitleColumn, title);
-        values.put(taskDescriptionColumn, description);
-        values.put(taskPriorityColumn, priority);
-        db.update(taskTable, values, taskIdColumn + "=" + taskData.getTaskId(), null);
+        values.put(COLUMN_CATID, categoryId);
+        values.put(COLUMN_TASKTITLE, title);
+        values.put(COLUMN_TASKDESC, description);
+        values.put(COLUMN_PRIORITY, priority);
+        db.update(TASKS, values, COLUMN_TASKID + "=" + taskData.getTaskId(), null);
     }
 
     //------------Notes
     //24. Get task's notes
     public ArrayList<NoteModel> getAllTaskNotes(TaskModel task) {
-        String query = "SELECT * FROM " + noteTable + " WHERE " +
-                taskIdColumn + " = \"" + task.getTaskId() + "\"";
+        String query = "SELECT * FROM " + NOTES + " WHERE " +
+                COLUMN_TASKID + " = \"" + task.getTaskId() + "\"";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -585,16 +290,16 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(taskIdColumn, taskId);
-        values.put(noteDescriptionColumn, description);
-        db.insert(noteTable, null, values);
+        values.put(COLUMN_TASKID, taskId);
+        values.put(NOTE_DESC, description);
+        db.insert(NOTES, null, values);
         db.close();
     }
 
     //26. Delete note
     public void deleteNote(Integer noteId) {
-        String query = "SELECT * FROM " + noteTable + " WHERE " +
-                noteIdColumn + " = \"" + noteId + "\"";
+        String query = "SELECT * FROM " + NOTES + " WHERE " +
+                NOTE_ID + " = \"" + noteId + "\"";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
@@ -604,7 +309,7 @@ public class DBHandler extends SQLiteOpenHelper {
             db.close();
         } else {
             do {
-                db.delete(noteTable, noteIdColumn + " =" + noteId,
+                db.delete(NOTES, NOTE_ID + " =" + noteId,
                         null);
             } while (cursor.moveToNext());
 
@@ -618,7 +323,7 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(noteDescriptionColumn, description);
-        db.update(noteTable, values, noteIdColumn + "=" + noteData.getNoteId(), null);
+        values.put(NOTE_DESC, description);
+        db.update(NOTES, values, NOTE_ID + "=" + noteData.getNoteId(), null);
     }
 }

@@ -18,6 +18,7 @@
     <color name="darkThemeNavColor">#473368</color>
     <color name="darkThemeBgColor">#222222</color>
     <color name="darkgreen">#053B31</color>
+    <color name="green">#1A6D46</color>
     <color name="priorityVeryImpt">#FF5C3E</color>
     <color name="priorityImpt">#FFD36E</color>
     <color name="priorityNotImpt">#5CD896</color>

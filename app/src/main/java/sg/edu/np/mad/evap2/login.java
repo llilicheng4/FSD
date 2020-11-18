@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class login extends AppCompatActivity {
-    public static UserData userdata;
+    public static UserModel userdata;
     final String TAG = "LoginActivity";
     public EditText emailId, password;
     Button btnLogin;

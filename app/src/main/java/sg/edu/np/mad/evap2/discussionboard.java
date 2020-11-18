@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -87,7 +88,7 @@ public class discussionboard extends AppCompatActivity {
 
     //intents for navigation items
     public void tvTasklistClick(View view){
-        Intent i = new Intent(discussionboard.this, personaltasklist.class);
+        Intent i = new Intent(discussionboard.this, ProjectFragment.class);
         startActivity(i);
     }
 

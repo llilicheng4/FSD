@@ -1,16 +1,15 @@
 package sg.edu.np.mad.evap2;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
+public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
 
 
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     //intents for navigation items
     public void tvTasklistClick(View view){
-        redirectActivity(this, personaltasklist.class);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ProjectFragment()).commit();
     }
 
     public void tvDiscussionClick(View view){

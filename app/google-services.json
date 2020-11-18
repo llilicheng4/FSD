@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "833492528759",
-    "firebase_url": "https://eva-database.firebaseio.com",
-    "project_id": "eva-database",
-    "storage_bucket": "eva-database.appspot.com"
+    "project_number": "48662850305",
+    "firebase_url": "https://eva-firebase-f95ac.firebaseio.com",
+    "project_id": "eva-firebase-f95ac",
+    "storage_bucket": "eva-firebase-f95ac.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:833492528759:android:08826df3d89a9917eb6072",
+        "mobilesdk_app_id": "1:48662850305:android:e66da7b0f598591ae98900",
         "android_client_info": {
           "package_name": "sg.edu.np.mad.evap2"
         }
       },
       "oauth_client": [
         {
-          "client_id": "833492528759-ac1bf3k6k4k8k1cos6hg8jlvu3ajn7qf.apps.googleusercontent.com",
+          "client_id": "48662850305-3a87gpvp73gh11srese1d63r3jtm95lr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCniP1S07sMERsI6zwNC6eA7MHKK904hTY"
+          "current_key": "AIzaSyCjR6kv2M4YDfqgv8vMnhmdatVmEk9I7aI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "833492528759-ac1bf3k6k4k8k1cos6hg8jlvu3ajn7qf.apps.googleusercontent.com",
+              "client_id": "48662850305-3a87gpvp73gh11srese1d63r3jtm95lr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

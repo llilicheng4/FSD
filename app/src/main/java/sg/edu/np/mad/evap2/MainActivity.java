@@ -10,6 +10,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainActivity extends AppCompatActivity {
+
     DrawerLayout drawerLayout;
 
 
@@ -47,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void tvDiscussionClick(View view){
         redirectActivity(this, discussionboard.class);
+    }
+
+    public void tvLogoutClick (View view){
+        FirebaseAuth.getInstance().signOut();
+        redirectActivity(this,login.class);
     }
 
     public static void redirectActivity(Activity activity, Class aClass){

@@ -3,9 +3,10 @@ package sg.edu.np.mad.evap2;
 import java.util.ArrayList;
 
 public class Module {
+    private String ModID;
     private String ModName;
     private String ModDesc;
-    private ArrayList<LMaterials> lMaterialsList;
+    private ArrayList<LMaterial> lMaterialsList;
 
     public Module() {
     }
@@ -31,11 +32,19 @@ public class Module {
         ModDesc = modDesc;
     }
 
-    public ArrayList<LMaterials> getlMaterialsList() {
+    public ArrayList<LMaterial> getlMaterialsList() {
         return lMaterialsList;
     }
 
-    public void setlMaterialsList(ArrayList<LMaterials> lMaterialsList) {
+    public void setlMaterialsList(ArrayList<LMaterial> lMaterialsList) {
         this.lMaterialsList = lMaterialsList;
+    }
+
+    public String getModID() {
+        return ModID;
+    }
+
+    public void setModID(String modID) {
+        ModID = modID;
     }
 }

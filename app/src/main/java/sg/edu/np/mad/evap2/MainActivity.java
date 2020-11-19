@@ -19,15 +19,13 @@ public class MainActivity extends AppCompatActivity {
     public UserModel userModel;
     private static final String TAG = "HomeActivity";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         drawerLayout = findViewById(R.id.drawer_layout);
-
-
-        Log.d(TAG, "onCreate: ");
     }
 
     @Override
@@ -71,13 +69,16 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         redirectActivity(this, login.class);
     }
-    public void tvModulesClick(View view){};
+    public void tvModulesClick(View view){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewModuleFragment()).commit();
+    };
 
     public static void redirectActivity(Activity activity, Class aClass) {
         Intent intent = new Intent(activity, aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
     }
+
 
    /* public void InitUser() {
         //obtain database and user ID

@@ -33,12 +33,12 @@
         app:layout_constraintTop_toBottomOf="@+id/rectangle_4" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="374dp"
+        android:layout_width="412dp"
+        android:layout_height="432dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:listitem="@layout/recycler_view_item" />
+        tools:listitem="@layout/layout_learning_material" />
 
     <TextView
         android:id="@+id/modName"

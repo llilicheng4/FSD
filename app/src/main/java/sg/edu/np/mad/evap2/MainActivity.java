@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         redirectActivity(this, login.class);
     }
     public void tvModulesClick(View view){
+        Log.d(TAG, "modules clicked ");
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewModuleFragment()).commit();
     };
 

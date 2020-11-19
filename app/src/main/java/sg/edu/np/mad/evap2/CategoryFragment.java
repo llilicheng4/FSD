@@ -21,34 +21,6 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 public class CategoryFragment extends Fragment {
-    /*
-        Author: Zhao Yi
-        Sections: All
-
-
-        ProjectFragment
-        Purpose: To display the kanban board.
-        Accessed from: The navigation view of main activity as well as deleting a task from task
-                       fragment.
-
-        1. OnCreateView
-            1.1 Edit project name [Line 118]
-                 Once user exits editing text state, save into database and update project data and
-                 refresh the navigation view.
-            1.2 Change image [Line 136]
-                 Proceed to gallery to pick an image to change the project icon in navigation view.
-            1.3 Delete project [Line 149]
-                 Run a confirmation alert, and delete project from database once confirmed before
-                 refreshing the navigation view.
-            1.4 Add new category [Line 179]
-                 Add a category with default information to be edited, into the project data and database
-                 before refreshing the recycler view.
-        2. OnActivityResult [Line 193]
-            Optimize the image and store into the database and refresh the navigation view.
-        3. Update image in fragment [Line 228]
-            Updates the image beside the project name in the fragment.
-    */
-
     //Declare variables
     private EditText projectName;
     private NavigationView navigationView;
@@ -80,7 +52,9 @@ public class CategoryFragment extends Fragment {
         ImageView addCategory = v.findViewById(R.id.addKanpan);
         //navigationView = getActivity().findViewById(R.id.);
 
+
         //Set up recycler view to display categories with their tasks
+        context = getContext();
         RecyclerView categoryRecyclerView = v.findViewById(R.id.kanPanRecyclerView);
         adapter = new CategoryAdapter(context, user, dbHandler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);

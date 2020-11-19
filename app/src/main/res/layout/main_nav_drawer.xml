@@ -163,10 +163,10 @@
                     android:layout_height="match_parent"
                     android:fontFamily="@font/quicksand"
                     android:gravity="center_vertical"
-                    android:text="Log out"
                     android:onClick="tvLogoutClick"
+                    android:text="   Log out"
                     android:textColor="#FFFFFF"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -205,7 +205,8 @@
                     android:text="Full stack development"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:onClick="tvModulesClick"/>
             </LinearLayout>
 
             <LinearLayout

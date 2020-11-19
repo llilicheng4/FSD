@@ -1,17 +1,14 @@
 package sg.edu.np.mad.evap2;
 
-import java.util.ArrayList;
-
-public class LMaterials {
+public class LMaterial {
     private String MaterialName;
     private String MaterialDesc;
-    private ArrayList<String> MaterialNames;
-    private boolean Done;
+    private boolean Done = false;
 
-    public LMaterials() {
+    public LMaterial() {
     }
 
-    public LMaterials(String materialName, String materialDesc){
+    public LMaterial(String materialName, String materialDesc){
         this.MaterialName = materialName;
         this.MaterialDesc = materialDesc;
     }

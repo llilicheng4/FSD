@@ -42,7 +42,7 @@ public class grpchat extends AppCompatActivity {
     FirebaseAuth mauth;
     DatabaseReference uref, grpnameref, grpmsgkeyref;
 
-    String currentUserID, currentUsername, currentDate, currentTime,grpname;
+    String currentUserID, currentUsername, currentDate, currentTime, grpname;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

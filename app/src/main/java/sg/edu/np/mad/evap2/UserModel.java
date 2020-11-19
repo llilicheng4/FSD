@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class UserModel implements Serializable {
     private String name, email, password;
     private ArrayList<CategoryModel> categoryModels;
+    private ArrayList<Module> modulesTaken;
 
     //Constructors
     public UserModel() {
@@ -49,5 +50,13 @@ public class UserModel implements Serializable {
 
     public void setCategories(ArrayList<CategoryModel> categoryModels) {
         this.categoryModels = categoryModels;
+    }
+
+    public ArrayList<Module> getModulesTaken() {
+        return modulesTaken;
+    }
+
+    public void setModulesTaken(ArrayList<Module> modulesTaken) {
+        this.modulesTaken = modulesTaken;
     }
 }

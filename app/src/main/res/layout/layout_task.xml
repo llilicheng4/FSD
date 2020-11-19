@@ -7,7 +7,7 @@
     android:layout_height="84dp"
     android:layout_marginStart="25dp"
     android:layout_marginLeft="25dp"
-    android:layout_marginTop="122dp"
+    android:layout_marginTop="20dp"
     android:background="@drawable/rectangle_3">
     <!-- Rectangle 32 -->
 

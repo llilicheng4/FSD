@@ -3,6 +3,7 @@ package sg.edu.np.mad.evap2;
 import java.util.ArrayList;
 
 public class Module {
+    private String ModID;
     private String ModName;
     private String ModDesc;
     private ArrayList<LMaterials> lMaterialsList;
@@ -37,5 +38,13 @@ public class Module {
 
     public void setlMaterialsList(ArrayList<LMaterials> lMaterialsList) {
         this.lMaterialsList = lMaterialsList;
+    }
+
+    public String getModID() {
+        return ModID;
+    }
+
+    public void setModID(String modID) {
+        ModID = modID;
     }
 }

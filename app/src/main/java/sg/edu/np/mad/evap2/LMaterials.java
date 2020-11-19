@@ -1,8 +1,11 @@
 package sg.edu.np.mad.evap2;
 
+import java.util.ArrayList;
+
 public class LMaterials {
     private String MaterialName;
     private String MaterialDesc;
+    private ArrayList<String> MaterialNames;
     private boolean Done;
 
     public LMaterials() {

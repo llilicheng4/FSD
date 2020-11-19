@@ -11,6 +11,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.File;
+import java.io.IOException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -18,16 +23,26 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     public UserModel userModel;
     private static final String TAG = "HomeActivity";
+    private StorageReference mStorageRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mStorageRef = FirebaseStorage.getInstance().getReferenceFromUrl("eva-firebase-f95ac.appspot.com");
         drawerLayout = findViewById(R.id.drawer_layout);
 
-
-        Log.d(TAG, "onCreate: ");
+        StorageReference ref = mStorageRef.child("test.txt");
+        File localFile = null;
+        try {
+            localFile = File.createTempFile("images", "txt");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (localFile != null) {
+            ref.getFile(localFile);
+        }
     }
 
     @Override
@@ -71,12 +86,18 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         redirectActivity(this, login.class);
     }
-    public void tvModulesClick(View view){};
+    public void tvModulesClick(View view){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewModuleFragment()).commit();
+    };
 
     public static void redirectActivity(Activity activity, Class aClass) {
         Intent intent = new Intent(activity, aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         activity.startActivity(intent);
+    }
+
+    public void downloadItems() throws IOException {
+
     }
 
    /* public void InitUser() {

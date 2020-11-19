@@ -32,6 +32,8 @@ public class discussionboard extends AppCompatActivity {
 
     ImageView add;
 
+    TextView viewall;
+
     RecyclerView grprv, forumrv;
     RecyclerView.LayoutManager layoutManager;
 
@@ -44,6 +46,8 @@ public class discussionboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.discussion_board);
+
+        viewall = findViewById(R.id.tvViewall);
 
         drawerLayout = findViewById(R.id.drawer_layout);
         add = findViewById(R.id.btnAdd);
@@ -66,6 +70,13 @@ public class discussionboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 redirectActivity(discussionboard.this, creategrp.class);
+            }
+        });
+
+        viewall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                redirectActivity(discussionboard.this, forum.class);
             }
         });
 

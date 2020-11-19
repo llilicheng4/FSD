@@ -9,11 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".peoplelist"
-            android:parentActivityName=".groupinfo"></activity>
+        <activity android:name=".forumchat"></activity>
+        <activity
+            android:name=".addforum"
+            android:parentActivityName=".forum" />
+        <activity
+            android:name=".forum"
+            android:parentActivityName=".discussionboard" />
+        <activity
+            android:name=".peoplelist"
+            android:parentActivityName=".groupinfo" />
         <activity android:name=".groupinfo" />
         <activity android:name=".CreateTask" />
-        android:theme="@style/AppTheme" >
         <activity android:name=".MainActivity" />
         <activity android:name=".login">
             <intent-filter>

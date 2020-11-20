@@ -52,4 +52,6 @@ public class forumclass {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 }

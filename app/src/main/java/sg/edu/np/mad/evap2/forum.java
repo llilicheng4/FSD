@@ -117,10 +117,10 @@ public class forum extends AppCompatActivity {
                         groupsViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(forum.this, grpchat.class);
+                                Intent intent = new Intent(forum.this, forumchat.class);
 
                                 intent.putExtra("title", titleText);
-                                intent.putExtra("context", contentText);
+                                intent.putExtra("content", contentText);
                                 intent.putExtra("category", categoryText);
 
                                 startActivity(intent);

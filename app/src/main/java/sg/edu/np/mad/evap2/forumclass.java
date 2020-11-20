@@ -1,7 +1,7 @@
 package sg.edu.np.mad.evap2;
 
 public class forumclass {
-    private String category, title, content, answer,status;
+    private String category, title, content, answer, status;
 
     public forumclass(){}
 
@@ -52,4 +52,6 @@ public class forumclass {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
 }

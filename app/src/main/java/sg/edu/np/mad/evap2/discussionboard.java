@@ -3,6 +3,7 @@ package sg.edu.np.mad.evap2;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,6 +106,11 @@ public class discussionboard extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void tvLogoutClick(View view) {
+        FirebaseAuth.getInstance().signOut();
+        redirectActivity(this, login.class);
+    }
+
     public static void redirectActivity(Activity activity, Class aClass){
         Intent intent = new Intent(activity,aClass);
 
@@ -200,5 +206,6 @@ public class discussionboard extends AppCompatActivity {
             }
         });
     }
+
 
 }

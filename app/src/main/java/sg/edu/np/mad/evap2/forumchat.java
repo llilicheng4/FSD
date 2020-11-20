@@ -111,6 +111,7 @@ public class forumchat extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SaveMsgToDB();
+                forumchat.setText("");
             }
         });
     }

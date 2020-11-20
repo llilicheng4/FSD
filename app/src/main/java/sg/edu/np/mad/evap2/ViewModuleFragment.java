@@ -50,7 +50,7 @@ public class ViewModuleFragment extends Fragment {
         moduleDesc.setText(newModule.getModDesc());
 
         //context = getContext();
-        mAdapter = new MaterialAdapter(materials, getActivity());
+        mAdapter = new MaterialAdapter(materials, getActivity(), getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

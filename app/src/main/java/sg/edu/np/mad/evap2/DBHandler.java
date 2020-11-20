@@ -110,7 +110,6 @@ public class DBHandler extends SQLiteOpenHelper {
         return KanPanList;
     }
 
-    //9. Add new project
     public void addCatToUser(UserModel userModel, CategoryModel categoryModel) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -124,7 +123,6 @@ public class DBHandler extends SQLiteOpenHelper {
     }
 
 
-    //11. Delete project
     public void deleteCat(Integer catID) {
         String query = "SELECT * FROM " + CAT + " WHERE " +
                 COLUMN_CATID + " = \"" + catID + "\"";
@@ -146,7 +144,6 @@ public class DBHandler extends SQLiteOpenHelper {
         }
     }
 
-    //12. Update project details
     public void updateProject(CategoryModel newData) {
         SQLiteDatabase db = this.getWritableDatabase();
 

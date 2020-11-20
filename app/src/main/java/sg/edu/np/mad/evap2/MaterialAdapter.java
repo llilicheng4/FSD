@@ -26,10 +26,12 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> {
     String materialKey;
     StorageReference mStorageRef;
     StorageReference ref;
+    Context currentContext;
 
-    public MaterialAdapter(ArrayList<LMaterial> LMaterials, Activity parentActivity) {
+    public MaterialAdapter(ArrayList<LMaterial> LMaterials, Activity parentActivity, Context context) {
         materialsArrayList = LMaterials;
         activityMain = parentActivity;
+        currentContext = context;
     }
 
     @NonNull
@@ -41,7 +43,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MaterialViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final MaterialViewHolder holder, int position) {
         final LMaterial lm = materialsArrayList.get(position);
 
         holder.MaterialName.setText(lm.getMaterialName());
@@ -51,6 +53,15 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> {
         } else {
             holder.MaterialDone.setText("Not Done");
         }
+
+        holder.MaterialDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startDownload("fsd.pdf", currentContext);
+                holder.MaterialDone.setText("Done");
+                lm.setDone(true);
+            }
+        });
 
     }
 
@@ -77,7 +88,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> {
             @Override
             public void onSuccess(Uri uri) {
                 String url = uri.toString();
-                downloadItems(context, "Mobile", ".txt", DIRECTORY_DOWNLOADS, url);
+                downloadItems(context, "Mobile", ".pdf", DIRECTORY_DOWNLOADS, url);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

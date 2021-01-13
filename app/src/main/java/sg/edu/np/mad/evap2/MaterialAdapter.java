@@ -48,18 +48,11 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> {
 
         holder.MaterialName.setText(lm.getMaterialName());
         holder.MaterialDesc.setText(lm.getMaterialDesc());
-        if (lm.isDone()) {
-            holder.MaterialDone.setText("Done");
-        } else {
-            holder.MaterialDone.setText("Not Done");
-        }
-
+        //code to start download
         holder.MaterialDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startDownload("fsd.pdf", currentContext);
-                holder.MaterialDone.setText("Done");
-                lm.setDone(true);
             }
         });
 

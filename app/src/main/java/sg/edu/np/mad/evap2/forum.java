@@ -97,7 +97,6 @@ public class forum extends AppCompatActivity {
                 ref.child(grpid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                         String title = snapshot.child("title").getValue().toString();
                         String content = snapshot.child("content").getValue().toString();
                         String category = snapshot.child("category").getValue().toString();

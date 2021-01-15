@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
@@ -42,17 +43,19 @@
                             android:paddingLeft="9dp"
                             android:text="Note title"
                             android:textColor="#ffffff"
-                            android:textSize="21sp" />
+                            android:textSize="21sp"
+                            app:autoSizeTextType="uniform"/>
 
                         <TextView
                             android:id="@+id/tvUsername"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/quicksand"
                             android:paddingLeft="9dp"
                             android:text="username"
                             android:textColor="#ffffff"
-                            android:textSize="18sp" />
+                            android:textSize="21sp"
+                            app:autoSizeTextType="uniform"/>
                     </LinearLayout>
 
 
@@ -63,9 +66,15 @@
                         android:layout_margin="9dp"
                         android:layout_marginStart="9dp"
                         android:fontFamily="@font/quicksand"
-                        android:text="Note desc"
                         android:textColor="#ffffff"
-                        android:textSize="21sp" />
+                        android:textSize="21sp"
+                        app:autoSizeTextType="uniform" />
+
+                    <ImageView
+                        android:id="@+id/ivImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:srcCompat="@tools:sample/avatars" />
                 </LinearLayout>
 
 
@@ -123,14 +132,6 @@
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-        <TextView
-            android:id="@+id/forumchatcontent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="something"
-            android:background="#053B31"
-            android:fontFamily="@font/quicksand"
-            android:textColor="#ffff"
-            android:padding="10dp"></TextView>
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

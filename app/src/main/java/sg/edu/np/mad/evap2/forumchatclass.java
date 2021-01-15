@@ -3,13 +3,18 @@ package sg.edu.np.mad.evap2;
 import java.util.List;
 
 public class forumchatclass {
-    String acontent, atitle, message, username;
+    String acontent, atitle, message, username, mName, mImageUrl;
     public forumchatclass(){}
-    public forumchatclass(String c, String t, String m, String u){
+    public forumchatclass(String c, String t, String m, String u, String mname, String url){
         this.acontent = c;
         this.atitle = t;
         this.message = m;
         this.username = u;
+        if (mname.trim().equals("")) {
+            mname = "No Name";
+        }
+        mName = mname;
+        mImageUrl = url;
     }
 
     public String getAcontent() {
@@ -42,5 +47,18 @@ public class forumchatclass {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getName() {
+        return mName;
+    }
+    public void setName(String name) {
+        mName = name;
+    }
+    public String getImageUrl() {
+        return mImageUrl;
+    }
+    public void setImageUrl(String imageUrl) {
+        mImageUrl = imageUrl;
     }
 }

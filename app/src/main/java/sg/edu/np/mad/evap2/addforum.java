@@ -84,6 +84,7 @@ public class addforum extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
+                            ref.child("Forums").child(n).child("op").setValue(currentUsername);
                             ref.child("Forums").child(n).child("title").setValue(n);
                             ref.child("Forums").child(n).child("content").setValue(d);
                             ref.child("Forums").child(n).child("category").setValue(c);
@@ -101,7 +102,7 @@ public class addforum extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    currentUsername = snapshot.child("email").getValue().toString();
+                    currentUsername = snapshot.child("username").getValue().toString();
 
                 }
             }

@@ -32,7 +32,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MsgViewH
             notetitle = itemView.findViewById(R.id.tvnotetitle);
             username = itemView.findViewById(R.id.tvUsername);
             desc = itemView.findViewById(R.id.tvDesc);
-            forumchatcontent = itemView.findViewById(R.id.forumchatcontent);
+
         }
     }
 

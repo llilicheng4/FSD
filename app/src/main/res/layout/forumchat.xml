@@ -74,18 +74,18 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp">
 
+            <ImageButton
+                android:id="@+id/btnforumattachment"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_paperclip"></ImageButton>
+
             <EditText
                 android:id="@+id/etforumchat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="#f5f5f5"></EditText>
-
-            <ImageButton
-                android:id="@+id/btnforumattachment"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_paperclip"></ImageButton>
 
             <ImageButton
                 android:id="@+id/btnforumchatsend"

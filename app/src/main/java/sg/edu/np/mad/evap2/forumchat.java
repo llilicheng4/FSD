@@ -319,7 +319,6 @@ public class forumchat extends AppCompatActivity {
                 forumnameref.child(msgid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String msgType = snapshot.child("messagetype").getValue().toString();
                         String name = snapshot.child("username").getValue().toString();
                         String desc = snapshot.child("atitle").getValue().toString();
                         String msg = snapshot.child("message").getValue().toString();

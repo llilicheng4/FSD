@@ -74,6 +74,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewModuleFragment()).commit();
     };
 
+    public void tvAccountClick(View view){
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new account()).commit();
+    }
+
     public static void redirectActivity(Activity activity, Class aClass) {
         Intent intent = new Intent(activity, aClass);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

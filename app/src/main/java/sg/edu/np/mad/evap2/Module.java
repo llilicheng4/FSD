@@ -6,14 +6,24 @@ public class Module {
     private String ModID;
     private String ModName;
     private String ModDesc;
+    private String ModuleSchool;
     private ArrayList<LMaterial> lMaterialsList;
 
     public Module() {
     }
 
-    public Module(String modName, String modDesc){
+    public Module(String modName, String modDesc, String moduleSchool){
         this.ModName = modName;
         this.ModDesc = modDesc;
+        this.ModuleSchool = moduleSchool;
+    }
+
+    public String getModuleSchool() {
+        return ModuleSchool;
+    }
+
+    public void setModuleSchool(String moduleSchool) {
+        ModuleSchool = moduleSchool;
     }
 
     public String getModName() {

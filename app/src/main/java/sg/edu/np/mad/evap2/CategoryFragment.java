@@ -34,9 +34,11 @@ public class CategoryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        container.removeAllViews();
         //Set reference to database
         dbHandler = new DBHandler(getActivity(), "PrOrganize.db", null, 1);
-         v = inflater.inflate(R.layout.activity_view_personal_tasklist, container, false);
+
+        v = inflater.inflate(R.layout.activity_view_personal_tasklist, container, false);
 
         //Get required data
         final String email = getActivity().getIntent().getStringExtra("email");

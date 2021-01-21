@@ -33,14 +33,15 @@ public class ViewModuleFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        container.removeAllViews();
         v = inflater.inflate(R.layout.fragment_view_module, container, false);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features");
+        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "InfoTech");
         materials = new ArrayList<LMaterial>();
-        LMaterial material = new LMaterial("Week 1 material", "work hard dont stop");
+        LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
         materials.add(material);
         newModule.setlMaterialsList(materials);
-        databaseReference.child("modules").child(newModule.getModName()).setValue(newModule);
+        databaseReference.child("modules").child(newModule.getModuleSchool()).child(newModule.getModName()).setValue(newModule);
 
         moduleName = v.findViewById(R.id.modName);
         moduleDesc = v.findViewById(R.id.modDesc);

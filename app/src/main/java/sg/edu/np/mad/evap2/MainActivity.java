@@ -95,10 +95,12 @@ public class MainActivity extends AppCompatActivity {
 
     //intents for navigation items
     public void tvTasklistClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoryFragment()).commit();
     }
 
     public void tvDiscussionClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
         redirectActivity(this, discussionboard.class);
     }
 
@@ -108,13 +110,16 @@ public class MainActivity extends AppCompatActivity {
     }
     public void tvModulesClick(View view){
         Log.d(TAG, "modules clicked ");
+        drawerLayout.closeDrawer(GravityCompat.START);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewModuleFragment()).commit();
     };
     public void tvBrowseModulesClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
         redirectActivity(this, MainActivity.class);
     }
 
     public void tvAccountClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new account()).commit();
     }
 

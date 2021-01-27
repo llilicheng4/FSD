@@ -40,7 +40,8 @@
         <activity android:name=".creategrp" />
         <activity android:name=".grpchat" />
         <activity
-            android:name=".dlmaterialhistory" />
+            android:name=".dlmaterialhistory"
+            android:launchMode="singleTop"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

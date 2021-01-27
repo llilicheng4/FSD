@@ -60,14 +60,14 @@
     <TextView
         android:id="@+id/modDesc"
         android:layout_width="299dp"
-        android:layout_height="130dp"
-        android:layout_marginBottom="12dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="112dp"
         android:text="TextView"
         android:textColor="#C9C9C9"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
         app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
-        app:layout_constraintHorizontal_bias="0.509"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="@+id/rectangle_4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

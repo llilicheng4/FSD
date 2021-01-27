@@ -1,11 +1,11 @@
-<vector
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:width="340dp"
     android:height="105dp"
     android:viewportWidth="340"
     android:viewportHeight="105"
-    >
+    app:cardElevation="5dp">
 
     <group>
 

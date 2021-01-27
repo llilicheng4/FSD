@@ -34,7 +34,9 @@ public class ViewLearningFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         container.removeAllViews();
+
         v = inflater.inflate(R.layout.fragment_view_module, container, false);
+
         databaseReference = FirebaseDatabase.getInstance().getReference();
         Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "InfoTech");
         materials = new ArrayList<LMaterial>();
@@ -49,6 +51,8 @@ public class ViewLearningFragment extends Fragment {
 
         moduleName.setText(newModule.getModName());
         moduleDesc.setText(newModule.getModDesc());
+
+        //code to get 2nd firebase db
 
         //context = getContext();
         mAdapter = new MaterialAdapter(materials, getActivity(), getContext());

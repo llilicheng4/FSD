@@ -28,6 +28,7 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> {
     StorageReference ref;
     Context currentContext;
 
+
     public MaterialAdapter(ArrayList<LMaterial> LMaterials, Activity parentActivity, Context context) {
         materialsArrayList = LMaterials;
         activityMain = parentActivity;

@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
         viewIT = findViewById(R.id.ITrecyclerView);
-        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "InfoTech");
+        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development","InfoTech");
         modules.add(newModule);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("modules").child("InfoTech");
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, snapshot.toString());
                 for(DataSnapshot moduleName : snapshot.getChildren()){
                     Log.d(TAG,  moduleName.toString());
-                    Module newDbModule = new Module(moduleName.child("modName").getValue().toString(), moduleName.child("modDesc").getValue().toString(), moduleName.child("moduleSchool").getValue().toString());
+                    Module newDbModule = new Module(moduleName.child("modName").getValue().toString(), moduleName.child("modDesc").getValue().toString(), moduleName.child("modDesc2").toString(), moduleName.child("moduleSchool").getValue().toString());
                     modules.add(newDbModule);
                 }
             }

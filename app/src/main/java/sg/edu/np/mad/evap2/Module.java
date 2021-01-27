@@ -1,8 +1,8 @@
 package sg.edu.np.mad.evap2;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-
-public class Module {
+public class Module implements Serializable {
     private String ModID;
     private String ModName;
     private String ModDesc;

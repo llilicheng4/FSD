@@ -19,7 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class ViewModuleFragment extends Fragment {
+public class ViewLearningFragment extends Fragment {
     private TextView moduleName, moduleDesc;
     private MaterialAdapter mAdapter;
     private RecyclerView recyclerView;

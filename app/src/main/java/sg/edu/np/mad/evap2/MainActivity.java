@@ -41,10 +41,12 @@ public class MainActivity extends AppCompatActivity {
         viewIT = findViewById(R.id.ITrecyclerView);
         Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "InfoTech");
         modules.add(newModule);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("InfoTech");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("modules").child("InfoTech");
+
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d(TAG, snapshot.toString());
                 for(DataSnapshot moduleName : snapshot.getChildren()){
                     Log.d(TAG,  moduleName.toString());
                     Module newDbModule = new Module(moduleName.child("modName").getValue().toString(), moduleName.child("modDesc").getValue().toString(), moduleName.child("moduleSchool").getValue().toString());
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Log.v(TAG, "Error getting database data");
             }
         });
 
@@ -111,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     public void tvModulesClick(View view){
         Log.d(TAG, "modules clicked ");
         drawerLayout.closeDrawer(GravityCompat.START);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewModuleFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewLearningFragment()).commit();
     };
     public void tvBrowseModulesClick(View view){
         drawerLayout.closeDrawer(GravityCompat.START);

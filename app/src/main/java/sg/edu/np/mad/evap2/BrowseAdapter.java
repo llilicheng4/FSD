@@ -2,6 +2,7 @@ package sg.edu.np.mad.evap2;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,7 +46,9 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent viewMod = new Intent();
+                Intent viewMod = new Intent(activityMain, ViewModuleActivity.class);
+                viewMod.putExtra("Module", lm);
+                activityMain.startActivity(viewMod);
                 Log.d(TAG, "IT clicked");
             }
         });

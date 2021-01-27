@@ -36,7 +36,7 @@ public class ViewLearningFragment extends Fragment {
         container.removeAllViews();
         v = inflater.inflate(R.layout.fragment_view_module, container, false);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "InfoTech");
+        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development","InfoTech");
         materials = new ArrayList<LMaterial>();
         LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
         materials.add(material);

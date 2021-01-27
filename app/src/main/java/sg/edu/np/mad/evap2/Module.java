@@ -6,15 +6,17 @@ public class Module implements Serializable {
     private String ModID;
     private String ModName;
     private String ModDesc;
+    private String ModDesc2;
     private String ModuleSchool;
     private ArrayList<LMaterial> lMaterialsList;
 
     public Module() {
     }
 
-    public Module(String modName, String modDesc, String moduleSchool){
+    public Module(String modName, String modDesc, String modDesc2, String moduleSchool){
         this.ModName = modName;
         this.ModDesc = modDesc;
+        this.ModDesc2 = modDesc2;
         this.ModuleSchool = moduleSchool;
     }
 
@@ -56,5 +58,13 @@ public class Module implements Serializable {
 
     public void setModID(String modID) {
         ModID = modID;
+    }
+
+    public String getModDesc2() {
+        return ModDesc2;
+    }
+
+    public void setModDesc2(String modDesc2) {
+        ModDesc2 = modDesc2;
     }
 }

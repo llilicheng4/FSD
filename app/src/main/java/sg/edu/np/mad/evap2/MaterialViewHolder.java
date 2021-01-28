@@ -13,8 +13,8 @@ public class MaterialViewHolder extends RecyclerView.ViewHolder{
 
     public MaterialViewHolder(@NonNull View itemView) {
         super(itemView);
-        MaterialName = itemView.findViewById(R.id.learningMaterialName);
+        /*MaterialName = itemView.findViewById(R.id.learningMaterialName);
         MaterialDesc = itemView.findViewById(R.id.learningMaterialDesc);
-        MaterialDone = itemView.findViewById(R.id.learningDone);
+        MaterialDone = itemView.findViewById(R.id.learningDone);*/
     }
 }

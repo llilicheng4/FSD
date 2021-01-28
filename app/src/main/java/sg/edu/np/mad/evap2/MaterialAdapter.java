@@ -47,8 +47,8 @@ public class MaterialAdapter extends RecyclerView.Adapter<MaterialViewHolder> {
     public void onBindViewHolder(@NonNull final MaterialViewHolder holder, int position) {
         final LMaterial lm = materialsArrayList.get(position);
 
-        holder.MaterialName.setText(lm.getMaterialName());
-        holder.MaterialDesc.setText(lm.getMaterialDesc());
+        /*holder.MaterialName.setText(lm.getMaterialName());
+        holder.MaterialDesc.setText(lm.getMaterialDesc());*/
         //code to start download
         holder.MaterialDone.setOnClickListener(new View.OnClickListener() {
             @Override

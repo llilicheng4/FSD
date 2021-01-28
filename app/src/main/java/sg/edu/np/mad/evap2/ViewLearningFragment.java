@@ -73,13 +73,6 @@ public class ViewLearningFragment extends Fragment {
         LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
         materials.add(material);
         newModule.setlMaterialsList(materials);
-        databaseReference.child("modules").child(newModule.getModuleSchool()).child(newModule.getModName()).setValue(newModule).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "success");
-            }
-        });
-
         moduleName = v.findViewById(R.id.modName);
         moduleDesc = v.findViewById(R.id.modDesc);
         recyclerView = v.findViewById(R.id.materials);

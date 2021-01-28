@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     public UserModel userModel;
-    private static final String TAG = "HomeActivity";
+    private static final String TAG = "MainActivity";
     RecyclerView viewIT;
     ArrayList<Module> modules = new ArrayList<>();
     private BrowseAdapter mAdapter;

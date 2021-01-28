@@ -2,6 +2,7 @@ package sg.edu.np.mad.evap2;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -41,7 +43,12 @@ public class ViewLearningFragment extends Fragment {
         LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
         materials.add(material);
         newModule.setlMaterialsList(materials);
-        databaseReference.child("modules").child(newModule.getModuleSchool()).child(newModule.getModName()).setValue(newModule);
+        databaseReference.child("modules").child(newModule.getModuleSchool()).child(newModule.getModName()).setValue(newModule).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "success");
+            }
+        });
 
         moduleName = v.findViewById(R.id.modName);
         moduleDesc = v.findViewById(R.id.modDesc);

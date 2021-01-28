@@ -81,6 +81,8 @@ public class ViewLearningFragment extends Fragment {
 
         //firebase db reference
         secondarydbRef = FirebaseDatabase.getInstance(app).getReference();
+
+        //storage reference
         mStorageRef = FirebaseStorage.getInstance("gs://p2-web-7da74.appspot.com/").getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 

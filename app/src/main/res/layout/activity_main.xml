@@ -16,59 +16,101 @@
         <include
             layout="@layout/main_toolbar"></include>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fragment_container"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <View
-                android:id="@+id/rectangle_2"
-                android:layout_width="300dp"
-                android:layout_height="43dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/searchbox"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ITrecyclerView"
-                android:layout_width="391dp"
-                android:layout_height="184dp"
-                android:layout_marginTop="32dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rectangle_2"
-                tools:listitem="@layout/recyclerview_browse_module" />
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="School of Business"
+                    android:textColor="#8D8D8D"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ITrecyclerView" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginBottom="4dp"
-                app:layout_constraintBottom_toBottomOf="@+id/rectangle_2"
-                app:layout_constraintStart_toStartOf="@+id/rectangle_2"
-                app:srcCompat="@drawable/ic_search" />
+                <View
+                    android:id="@+id/rectangle_2"
+                    android:layout_width="300dp"
+                    android:layout_height="43dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/searchbox"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.494"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="224dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="4dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Search"
-                app:layout_constraintEnd_toEndOf="@+id/rectangle_2"
-                app:layout_constraintHorizontal_bias="0.671"
-                app:layout_constraintStart_toStartOf="@+id/rectangle_2"
-                app:layout_constraintTop_toTopOf="@+id/rectangle_2" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/ITrecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginTop="44dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rectangle_2"
+                    tools:listitem="@layout/recyclerview_browse_module" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/BArecyelerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="210dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20"
+                    tools:listitem="@layout/recyclerview_ba_mod" />
+
+                <ImageView
+                    android:id="@+id/searchView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="256dp"
+                    android:layout_marginBottom="4dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/rectangle_2"
+                    app:layout_constraintStart_toStartOf="@+id/rectangle_2"
+                    app:srcCompat="@drawable/ic_search" />
+
+                <EditText
+                    android:id="@+id/search"
+                    android:layout_width="230dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="4dp"
+                    android:ems="8"
+                    android:hint="Search"
+                    android:inputType="textPersonName"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/rectangle_2"
+                    app:layout_constraintHorizontal_bias="0.271"
+                    app:layout_constraintStart_toStartOf="@+id/rectangle_2"
+                    app:layout_constraintTop_toTopOf="@+id/rectangle_2" />
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/quicksand"
+                    android:text="School of ICT"
+                    android:textColor="#8D8D8D"
+                    app:layout_constraintBottom_toTopOf="@+id/ITrecyclerView"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
 
     </LinearLayout>
 

@@ -35,8 +35,8 @@ public class ViewModuleActivity extends AppCompatActivity {
             }
         });
 
-        title.setText(moduleName);
-        name.setText(moduleName);
+        title.setText(moduleName.toUpperCase());
+        name.setText(moduleName.toUpperCase());
         nameOfMod.setText(moduleName);
         description1.setText(modDesc);
         description2.setText(modDesc2);

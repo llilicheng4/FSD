@@ -18,11 +18,7 @@ import java.util.ArrayList;
 public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
     ArrayList<Module> materialsArrayList;
     Activity activityMain;
-    String materialKey;
-    StorageReference mStorageRef;
-    StorageReference ref;
-    Context currentContext;
-    final String TAG = "browse recycler";
+    final String TAG = "browseRecycler";
     public BrowseAdapter(ArrayList<Module> LMaterials, Activity parentActivity) {
         materialsArrayList = LMaterials;
         activityMain = parentActivity;
@@ -30,8 +26,15 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
 
     @NonNull
     @Override
-    public BrowseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_browse_module, parent, false);
+    public BrowseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
+        View v;
+        if(materialsArrayList.get(0).getModuleSchool().equals("Business")){
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_ba_mod, parent, false);
+        }
+        else{
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_browse_module, parent, false);
+        }
         BrowseViewHolder viewHolder = new BrowseViewHolder(v);
         return viewHolder;
     }
@@ -40,7 +43,7 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
     public void onBindViewHolder(@NonNull BrowseViewHolder holder, int position) {
         final Module lm = materialsArrayList.get(position);
 
-        holder.MaterialName.setText(lm.getModName());
+        holder.MaterialName.setText(lm.getModName().toUpperCase());
         holder.MaterialDesc.setText(lm.getModDesc());
         holder.MaterialSchool.setText(lm.getModuleSchool());
         holder.itemView.setOnClickListener(new View.OnClickListener() {

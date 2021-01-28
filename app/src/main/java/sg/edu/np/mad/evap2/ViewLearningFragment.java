@@ -96,6 +96,9 @@ public class ViewLearningFragment extends Fragment {
             }
         });*/
 
+        /*LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
+        materials.add(material);
+        newModule.setlMaterialsList(materials);*/
         moduleName = v.findViewById(R.id.modName);
         moduleDesc = v.findViewById(R.id.modDesc);
         recyclerView = v.findViewById(R.id.materials);

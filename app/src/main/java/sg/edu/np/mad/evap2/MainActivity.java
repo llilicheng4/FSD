@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,11 +17,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -29,9 +34,12 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     public UserModel userModel;
     private static final String TAG = "MainActivity";
-    RecyclerView viewIT;
-    ArrayList<Module> modules = new ArrayList<>();
+    RecyclerView viewIT, viewBA;
+    ArrayList<Module> ITModules, BAModules;
     private BrowseAdapter mAdapter;
+    private BrowseAdapter browseAdapter;
+    ImageView searchButton;
+    EditText searchItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,19 +47,51 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
         viewIT = findViewById(R.id.ITrecyclerView);
-        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development","InfoTech");
-        modules.add(newModule);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("modules").child("InfoTech");
+        viewBA = findViewById(R.id.BArecyelerView);
+        ITModules = new ArrayList<>();
+        BAModules = new ArrayList<>();
+        searchButton = findViewById(R.id.searchView);
+        searchItem = findViewById(R.id.search);
 
-        ref.addValueEventListener(new ValueEventListener() {
+
+
+        final DatabaseReference DBRef = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference Modules = FirebaseDatabase.getInstance().getReference().child("modules");
+
+
+
+        //Log.d(TAG, Modules.toString());
+        /*Module newModule = new Module("full stack development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development","InfoTech");
+        Module module1 = new Module("accounting", "Accounting is the process of recording financial transactions pertaining to a business. The accounting process includes summarizing, analyzing and reporting these transactions to oversight agencies, regulators and tax collection entities.", "Students will learn important skills in accounting", "Business");
+        Module module2 = new Module("programming 1", "Programming is the process of creating a set of instructions that tell a computer how to perform a task. Programming can be done using a variety of computer programming languages, such as JavaScript, Python, and C++.", "Students will learn skills and concepts about programming with Python 3.9", "InfoTech");
+        DBRef.child("modules").child(newModule.getModName()).setValue(newModule);
+        DBRef.child("modules").child(module1.getModName()).setValue(module1);
+        DBRef.child("modules").child(module2.getModName()).setValue(module2);*/
+
+        Modules.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d(TAG, snapshot.toString());
-                for(DataSnapshot moduleName : snapshot.getChildren()){
-                    Log.d(TAG,  moduleName.toString());
-                    Module newDbModule = new Module(moduleName.child("modName").getValue().toString(), moduleName.child("modDesc").getValue().toString(), moduleName.child("modDesc2").toString(), moduleName.child("moduleSchool").getValue().toString());
-                    modules.add(newDbModule);
+                Log.d(TAG, String.valueOf(snapshot.getValue()));
+                for(DataSnapshot module : snapshot.getChildren()){
+                    Module newDbModule = new Module(module.child("modName").getValue().toString(), module.child("modDesc").getValue().toString(), module.child("modDesc2").getValue().toString(), module.child("moduleSchool").getValue().toString());
+                    if(newDbModule.getModuleSchool().equals("Business")){
+                        BAModules.add(newDbModule);
+                    }
+                    else{
+                        ITModules.add(newDbModule);
+                    }
                 }
+                mAdapter = new BrowseAdapter(ITModules, MainActivity.this);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                viewIT.setLayoutManager(layoutManager);
+                viewIT.setItemAnimator(new DefaultItemAnimator());
+                viewIT.setAdapter(mAdapter);
+
+                browseAdapter = new BrowseAdapter(BAModules, MainActivity.this);
+                    LinearLayoutManager mLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
+                    viewBA.setLayoutManager(mLayoutManager);
+                    viewBA.setItemAnimator(new DefaultItemAnimator());
+                    viewBA.setAdapter(browseAdapter);
             }
 
             @Override
@@ -60,11 +100,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mAdapter = new BrowseAdapter(modules, MainActivity.this);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        viewIT.setLayoutManager(layoutManager);
-        viewIT.setItemAnimator(new DefaultItemAnimator());
-        viewIT.setAdapter(mAdapter);
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String item = searchItem.getText().toString();
+                if (!item.isEmpty() || !item.equals("")) {
+                    String lower = item.toLowerCase();
+                    Query searchQuery = Modules.orderByChild("modName").startAt(lower).endAt(lower + "\uf8ff");
+
+                    searchQuery.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for(DataSnapshot snap : snapshot.getChildren()){
+                                Intent found = new Intent(MainActivity.this, ViewModuleActivity.class);
+                                Module foundMod = new Module(snap.child("modName").getValue().toString(), snap.child("modDesc").getValue().toString(), snap.child("modDesc2").getValue().toString(), snap.child("moduleSchool").getValue().toString());
+                                found.putExtra("Module", foundMod);
+                                startActivity(found);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+                }
+            }
+        });
+
     }
 
     @Override

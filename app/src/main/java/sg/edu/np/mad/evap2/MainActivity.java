@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
     //intents for navigation items
     public void tvTasklistClick(View view) {
         drawerLayout.closeDrawer(GravityCompat.START);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CategoryFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new CategoryFragment()).commit();
     }
 
     public void tvDiscussionClick(View view) {
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void tvAccountClick(View view){
         drawerLayout.closeDrawer(GravityCompat.START);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new account()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, new account()).commit();
     }
 
     public static void redirectActivity(Activity activity, Class aClass) {

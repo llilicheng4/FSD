@@ -1,6 +1,8 @@
 package sg.edu.np.mad.evap2;
 
+import android.app.Activity;
 import android.app.DownloadManager;
+import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +20,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,6 +34,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,11 +50,14 @@ import java.util.ArrayList;
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class ViewLearningFragment extends AppCompatActivity {
+    DrawerLayout drawerLayout;
     private static Context context;
     private TextView moduleName, moduleDesc;
     private MaterialAdapter mAdapter;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
+
+    Toolbar toolbar;
 
     private DatabaseReference databaseReference, secondarydbRef;
     private static String TAG = "ViewModFrag";
@@ -60,6 +70,9 @@ public class ViewLearningFragment extends AppCompatActivity {
     FirebaseOptions options;
     FirebaseApp app;
     FirebaseDatabase secondaryDB;
+    FirebaseAuth auth;
+
+    String userID;
 
     //1. OnCreateView
 
@@ -84,6 +97,9 @@ public class ViewLearningFragment extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance("gs://p2-web-7da74.appspot.com/").getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
+        auth = FirebaseAuth.getInstance();
+        userID = auth.getUid();
+
         Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development", "InfoTech");
         materials = new ArrayList<LMaterial>();
         //LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
@@ -102,9 +118,14 @@ public class ViewLearningFragment extends AppCompatActivity {
         moduleName = findViewById(R.id.modName);
         moduleDesc = findViewById(R.id.modDesc);
         recyclerView = findViewById(R.id.materials);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        //toolbar = findViewById(R.id.viewmatbar);
 
-        //moduleName.setText(newModule.getModName());
-        //moduleDesc.setText(newModule.getModDesc());
+        //setSupportActionBar(toolbar);
+        //getSupportActionBar().setTitle(newModule.getModName());
+
+        moduleName.setText(newModule.getModName());
+        moduleDesc.setText(newModule.getModDesc());
 
         //gonna comment your rv code so that i can replace it with the one i am using
         /*mAdapter = new MaterialAdapter(materials, getActivity(), getContext());
@@ -165,6 +186,9 @@ public class ViewLearningFragment extends AppCompatActivity {
                             @Override
                             public void onClick(View v) {
                                 startDownload(modname, weekNum, filename, filewExt, context);
+                                LMaterial material = new LMaterial(modname, filename, filewExt, weekNum);
+
+                                databaseReference.child("Download history").child(userID).push().setValue(material);
                                 Toast.makeText(context,"Downloading file", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -239,5 +263,65 @@ public class ViewLearningFragment extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void ClickMenu(View view) {
+        //open drawer
+        ViewLearningFragment.openDrawer(drawerLayout);
+    }
+
+    private static void openDrawer(DrawerLayout drawerLayout) {
+        //open drawer layout
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    //allows for the drawer to disappear if user presses back on their phone
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START); //close drawer
+        }
+    }
+
+    //intents for navigation items
+    public void tvTasklistClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        CategoryFragment fragment = new CategoryFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
+    public void tvDiscussionClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, discussionboard.class);
+    }
+
+    public void tvLogoutClick(View view) {
+        FirebaseAuth.getInstance().signOut();
+        redirectActivity(this, login.class);
+    }
+    public void tvModulesClick(View view){
+        Log.d(TAG, "modules clicked ");
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, ViewLearningFragment.class);
+    };
+    public void tvBrowseModulesClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, MainActivity.class);
+    }
+
+    public void tvAccountClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        account fragment = new account();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass) {
+        Intent intent = new Intent(activity, aClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+
     }
 }

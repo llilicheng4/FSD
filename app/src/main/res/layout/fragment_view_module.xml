@@ -1,74 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewModuleFragment">
+    android:id="@+id/drawer_layout">
 
-    <View
-        android:id="@+id/rectangle_4"
-        android:layout_width="350dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/rectangle_4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/learning_ma"
-        android:layout_width="173dp"
-        android:layout_height="31dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:text="Learning Materials:"
-        android:textAppearance="@style/learning_ma"
-        app:layout_constraintBottom_toTopOf="@+id/materials"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.126"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rectangle_4"
-        app:layout_constraintVertical_bias="0.0" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frameLayout">
+        <include
+            android:id="@+id/include"
+            layout="@layout/main_toolbar"></include>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/materials"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rectangle_4" />
+            tools:context=".ViewModuleFragment">
 
-    <TextView
-        android:id="@+id/modName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="20dp"
-        android:text="NAME"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@+id/rectangle_4"
-        app:layout_constraintTop_toTopOf="@+id/rectangle_4" />
 
-    <TextView
-        android:id="@+id/modDesc"
-        android:layout_width="299dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="112dp"
-        android:text="TextView"
-        android:textColor="#C9C9C9"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
-        app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
-        app:layout_constraintHorizontal_bias="0.47"
-        app:layout_constraintStart_toStartOf="@+id/rectangle_4" />
+            <View
+                android:id="@+id/rectangle_4"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="64dp"
+                android:background="@drawable/rectangle_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.491"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/learning_ma"
+                android:layout_width="173dp"
+                android:layout_height="31dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="Learning Materials:"
+                android:textAppearance="@style/learning_ma"
+                app:layout_constraintBottom_toTopOf="@+id/materials"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.126"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rectangle_4"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/materials"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="48dp"
+                android:layout_marginBottom="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rectangle_4" />
+
+            <TextView
+                android:id="@+id/modName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="20dp"
+                android:text="NAME"
+                android:textColor="#FFFFFF"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="@+id/rectangle_4"
+                app:layout_constraintTop_toTopOf="@+id/rectangle_4" />
+
+            <TextView
+                android:id="@+id/modDesc"
+                android:layout_width="299dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="112dp"
+                android:text="TextView"
+                android:textColor="#C9C9C9"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/rectangle_4"
+                app:layout_constraintEnd_toEndOf="@+id/rectangle_4"
+                app:layout_constraintHorizontal_bias="0.47"
+                app:layout_constraintStart_toStartOf="@+id/rectangle_4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#053B31">
+
+        <include
+            layout="@layout/main_nav_drawer"></include>
+    </RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

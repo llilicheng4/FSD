@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,12 +42,13 @@ import java.util.ArrayList;
 
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
-public class ViewLearningFragment extends Fragment {
+public class ViewLearningFragment extends AppCompatActivity {
+    private static Context context;
     private TextView moduleName, moduleDesc;
     private MaterialAdapter mAdapter;
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
-    private Context context;
+
     private DatabaseReference databaseReference, secondarydbRef;
     private static String TAG = "ViewModFrag";
     private ArrayList<LMaterial> materials;
@@ -60,14 +62,12 @@ public class ViewLearningFragment extends Fragment {
     FirebaseDatabase secondaryDB;
 
     //1. OnCreateView
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        container.removeAllViews();
-
-        v = inflater.inflate(R.layout.fragment_view_module, container, false);
-        context = getContext();
-
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_view_module);
+        ViewLearningFragment.context = getApplicationContext();
         //code to get 2nd firebase db
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setApplicationId("1:783825586537:android:cdd90f1300165eee3195f8")
@@ -75,7 +75,7 @@ public class ViewLearningFragment extends Fragment {
                 .setDatabaseUrl("https://p2-web-7da74-default-rtdb.firebaseio.com")
                 .build();
 
-        FirebaseApp.initializeApp(context, options, "secondary");
+        FirebaseApp.initializeApp(this.context, options, "secondary");
         app = FirebaseApp.getInstance("secondary");
         secondaryDB = FirebaseDatabase.getInstance(app);
 
@@ -84,7 +84,7 @@ public class ViewLearningFragment extends Fragment {
         mStorageRef = FirebaseStorage.getInstance("gs://p2-web-7da74.appspot.com/").getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development","InfoTech");
+        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development", "InfoTech");
         materials = new ArrayList<LMaterial>();
         //LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
         //materials.add(material);
@@ -99,12 +99,12 @@ public class ViewLearningFragment extends Fragment {
         /*LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
         materials.add(material);
         newModule.setlMaterialsList(materials);*/
-        moduleName = v.findViewById(R.id.modName);
-        moduleDesc = v.findViewById(R.id.modDesc);
-        recyclerView = v.findViewById(R.id.materials);
+        moduleName = findViewById(R.id.modName);
+        moduleDesc = findViewById(R.id.modDesc);
+        recyclerView = findViewById(R.id.materials);
 
-        moduleName.setText(newModule.getModName());
-        moduleDesc.setText(newModule.getModDesc());
+        //moduleName.setText(newModule.getModName());
+        //moduleDesc.setText(newModule.getModDesc());
 
         //gonna comment your rv code so that i can replace it with the one i am using
         /*mAdapter = new MaterialAdapter(materials, getActivity(), getContext());
@@ -115,7 +115,6 @@ public class ViewLearningFragment extends Fragment {
 
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
-        return v;
 
     }
 
@@ -219,11 +218,6 @@ public class ViewLearningFragment extends Fragment {
         downloadManager.enqueue(request);
     }
 
-    private String getFileExtension(Uri uri) {
-        ContentResolver cR = getActivity().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
-    }
 
     public void startDownload(String module, String week, final String filename, final String fnameEXT, final Context context) {
         ref = mStorageRef.child("Modules").child(module).child(week).child(filename).child(fnameEXT);

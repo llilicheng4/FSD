@@ -20,6 +20,9 @@
             android:name=".forumchat"
             android:parentActivityName=".forum" />
         <activity
+            android:name=".ViewLearningFragment"
+           />
+        <activity
             android:name=".addforum"
             android:parentActivityName=".forum" />
         <activity

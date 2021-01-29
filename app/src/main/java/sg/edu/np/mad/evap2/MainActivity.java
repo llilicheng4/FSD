@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
     public void tvModulesClick(View view){
         Log.d(TAG, "modules clicked ");
         drawerLayout.closeDrawer(GravityCompat.START);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ViewLearningFragment()).commit();
+        redirectActivity(this, ViewLearningFragment.class);
     };
     public void tvBrowseModulesClick(View view){
         drawerLayout.closeDrawer(GravityCompat.START);

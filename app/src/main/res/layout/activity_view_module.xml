@@ -49,7 +49,7 @@
             android:layout_height="200dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/rectangle_2"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+            />
 
 
         <View
@@ -63,16 +63,13 @@
 
         <TextView
             android:id="@+id/textView13"
-            android:layout_width="220dp"
-            android:layout_height="31dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="10dp"
-            android:elevation="4dp"
+            android:layout_marginTop="11dp"
             android:text="TextView"
             android:textColor="#FFFFFF"
-            android:textSize="20dp"
-            app:layout_constraintEnd_toEndOf="@+id/view"
+            android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view" />
 
@@ -93,12 +90,12 @@
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="31dp"
-            android:layout_marginStart="96dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
             android:text="FSD"
             android:textColor="#181818"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@+id/rectangle_3"
+            app:layout_constraintStart_toEndOf="@+id/textView14"
             app:layout_constraintTop_toTopOf="@+id/rectangle_3" />
 
         <TextView
@@ -158,6 +155,24 @@
             android:textSize="20sp"
             app:layout_constraintStart_toStartOf="@+id/rectangle_4"
             app:layout_constraintTop_toBottomOf="@+id/rectangle_3" />
+
+        <Button
+            android:id="@+id/btnEnroll"
+            android:layout_width="326dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="40dp"
+            android:background="#1A6D46"
+            android:text="Enroll"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rectangle_4"
+            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

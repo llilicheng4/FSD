@@ -100,7 +100,7 @@ public class ViewLearningFragment extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         userID = auth.getUid();
 
-        Module newModule = new Module("Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development", "InfoTech");
+        Module newModule = new Module("FSD","Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development", "InfoTech");
         materials = new ArrayList<LMaterial>();
         //LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
         //materials.add(material);

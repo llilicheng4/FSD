@@ -13,7 +13,8 @@ public class Module implements Serializable {
     public Module() {
     }
 
-    public Module(String modName, String modDesc, String modDesc2, String moduleSchool){
+    public Module(String modID, String modName, String modDesc, String modDesc2, String moduleSchool){
+        this.ModID = modID;
         this.ModName = modName;
         this.ModDesc = modDesc;
         this.ModDesc2 = modDesc2;

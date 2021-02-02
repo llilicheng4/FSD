@@ -29,8 +29,12 @@ public class BrowseAdapter extends RecyclerView.Adapter<BrowseViewHolder> {
     public BrowseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
         View v;
-        if(materialsArrayList.get(0).getModuleSchool().equals("Business")){
+        Module first = materialsArrayList.get(0);
+        if(first.getModuleSchool().equals("Business")){
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_ba_mod, parent, false);
+        }
+        else if(first.getModuleSchool().equals("Engineering")){
+            v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_en_mod, parent, false);
         }
         else{
             v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_browse_module, parent, false);

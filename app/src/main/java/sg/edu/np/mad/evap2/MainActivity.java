@@ -70,8 +70,6 @@ public class MainActivity extends AppCompatActivity {
         viewEN = findViewById(R.id.EnrecyclerView);
         //naviEn = findViewById(R.id.rvEnmod);
 
-
-
         ITModules = new ArrayList<>();
         BAModules = new ArrayList<>();
         ENModules = new ArrayList<>();

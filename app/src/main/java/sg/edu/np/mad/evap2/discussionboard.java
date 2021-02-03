@@ -70,7 +70,7 @@ public class discussionboard extends AppCompatActivity {
         grprv = findViewById(R.id.rvStudyGrp);
         forumrv = findViewById(R.id.rvForums);
 
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         grprv.setLayoutManager(layoutManager);
 
         mauth = FirebaseAuth.getInstance();
@@ -197,6 +197,7 @@ public class discussionboard extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+        //code for grp list
         String fbemail = currentemail.replace(".","_");
 
         FirebaseRecyclerOptions options =

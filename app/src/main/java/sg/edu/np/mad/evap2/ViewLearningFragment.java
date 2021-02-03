@@ -89,6 +89,7 @@ public class ViewLearningFragment extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         userID = auth.getUid();
         Bundle selectedmod = getIntent().getExtras();
+
         if(selectedmod != null){
             selectedmodule = selectedmod.getString("selectmodule");
         }
@@ -109,8 +110,6 @@ public class ViewLearningFragment extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference enrolment = FirebaseDatabase.getInstance().getReference().child("enrollment").child(userID);
 
-
-
         Module newModule = new Module("FSD","Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development", "InfoTech");
         materials = new ArrayList<LMaterial>();
         //LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
@@ -130,10 +129,11 @@ public class ViewLearningFragment extends AppCompatActivity {
         moduleDesc = findViewById(R.id.modDesc);
         recyclerView = findViewById(R.id.materials);
         drawerLayout = findViewById(R.id.drawer_layout);
-        //toolbar = findViewById(R.id.viewmatbar);
 
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle(newModule.getModName());
+        toolbar = findViewById(R.id.forumbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(selectedmodule);
 
         moduleName.setText(newModule.getModName());
         moduleDesc.setText(newModule.getModDesc());
@@ -352,6 +352,9 @@ public class ViewLearningFragment extends AppCompatActivity {
     public void tvTasklistClick(View view) {
         drawerLayout.closeDrawer(GravityCompat.START);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Task lisk");
+
         CategoryFragment fragment = new CategoryFragment();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
@@ -374,7 +377,8 @@ public class ViewLearningFragment extends AppCompatActivity {
 
     public void tvAccountClick(View view){
         drawerLayout.closeDrawer(GravityCompat.START);
-
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Account");
         account fragment = new account();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();

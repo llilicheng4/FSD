@@ -223,6 +223,13 @@ public class forum extends AppCompatActivity {
         }
     }
 
+    //allows for the drawer to disappear if user presses back on their phone
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START); //close drawer
+        }
+    }
+
     //intents for navigation items
     public void tvTasklistClick(View view) {
         drawerLayout.closeDrawer(GravityCompat.START);

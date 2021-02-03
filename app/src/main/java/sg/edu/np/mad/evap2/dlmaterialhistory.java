@@ -257,10 +257,18 @@ public class dlmaterialhistory extends AppCompatActivity {
         });
     }
 
+    //allows for the drawer to disappear if user presses back on their phone
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START); //close drawer
+        }
+    }
+
     //intents for navigation items
     public void tvTasklistClick(View view) {
         drawerLayout.closeDrawer(GravityCompat.START);
-
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Task lisk");
         CategoryFragment fragment = new CategoryFragment();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
@@ -283,7 +291,8 @@ public class dlmaterialhistory extends AppCompatActivity {
 
     public void tvAccountClick(View view){
         drawerLayout.closeDrawer(GravityCompat.START);
-
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Account");
         account fragment = new account();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();

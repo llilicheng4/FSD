@@ -28,8 +28,10 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvForums"
                     android:layout_width="0dp"
-                    android:layout_height="230dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
+                    android:layout_marginBottom="104dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -101,8 +103,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvStudyGrp"
                     android:layout_width="0dp"
-                    android:layout_height="230dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toTopOf="@+id/textView7"
                     app:layout_constraintEnd_toEndOf="parent"

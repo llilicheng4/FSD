@@ -191,74 +191,10 @@
                 android:textSize="16sp"
                 android:padding="10dp"/>
 
-            <LinearLayout
+            <ListView
+                android:id="@+id/lvnaviEnroll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:id="@+id/tvModules1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/quicksand"
-                    android:gravity="center_vertical"
-                    android:text="Full stack development"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:padding="10dp"
-                    android:onClick="tvModulesClick"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:id="@+id/tvModules2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/quicksand"
-                    android:gravity="center_vertical"
-                    android:text="Portfolio II"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:padding="10dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:id="@+id/tvModules3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/quicksand"
-                    android:gravity="center_vertical"
-                    android:text="User experience"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:padding="10dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
-                <TextView
-                    android:id="@+id/tvModules4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/quicksand"
-                    android:gravity="center_vertical"
-                    android:text="Cust. Decision Negotiation"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:padding="10dp"/>
-            </LinearLayout>
+                android:layout_height="match_parent" />
 
         </LinearLayout>
     </LinearLayout>

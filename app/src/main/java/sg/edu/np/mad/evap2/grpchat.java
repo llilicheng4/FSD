@@ -51,6 +51,8 @@ public class grpchat extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.grpnamebar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Study group");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         groupname = findViewById(R.id.tvStudygrpname);
         displaymsg = findViewById(R.id.tvgrpchatdisplay);
         sendmsg = findViewById(R.id.etMessage);

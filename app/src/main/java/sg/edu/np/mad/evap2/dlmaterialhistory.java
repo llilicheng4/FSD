@@ -5,6 +5,7 @@ import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,6 +79,7 @@ public class dlmaterialhistory extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Downloaded material history");
 
+
         //init rv
         layoutManager = new LinearLayoutManager(context);
         history.setLayoutManager(layoutManager);
@@ -124,7 +126,7 @@ public class dlmaterialhistory extends AppCompatActivity {
                         groupsViewHolder.dlMat.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                startDownload(modname, weekNum, filename, filewExt, context);
+                                startDownload(modname, weekNum, filewExt, context);
                                 Toast.makeText(context,"Downloading file", Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -179,17 +181,20 @@ public class dlmaterialhistory extends AppCompatActivity {
     }
 
 
-    public void startDownload(String module, String week, final String filename, final String fnameEXT, final Context context) {
-        ref = mStorageRef.child("Modules").child(module).child(week).child(filename).child(fnameEXT);
+    public void startDownload(String module, String week, final String fnameEXT, final Context context) {
+        String[] parts = fnameEXT.split("\\.");
+        final String extension = parts[1];
+
+        ref = mStorageRef.child("Modules").child(module).child(week).child(fnameEXT).child(fnameEXT + "." + extension);
+        Log.d("OUTPUT", String.valueOf(ref));
 
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 String url = uri.toString();
                 //split file into 2 part, the file name and the file extension
-                String[] parts = fnameEXT.split("\\.");
-                String extension = parts[1];
-                downloadItems(context, filename +".", extension, DIRECTORY_DOWNLOADS, url);
+
+                downloadItems(context, fnameEXT  + ".", extension, DIRECTORY_DOWNLOADS, url);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

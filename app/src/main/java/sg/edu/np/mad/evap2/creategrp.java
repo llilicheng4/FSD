@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,6 +33,8 @@ public class creategrp extends AppCompatActivity {
     DatabaseReference ref, uref;
     FirebaseAuth mauth;
 
+    Toolbar toolbar;
+
     String currentUserID, currentUsername;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,12 @@ public class creategrp extends AppCompatActivity {
         currentUserID = mauth.getCurrentUser().getUid();
 
         GetUsername(currentUserID);
+
+        //toolbar code
+        toolbar = findViewById(R.id.forumbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Created study group");
 
         addgrp.setOnClickListener(new View.OnClickListener() {
             @Override

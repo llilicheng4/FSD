@@ -3,6 +3,7 @@ package sg.edu.np.mad.evap2;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +22,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +41,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class dlmaterialhistory extends AppCompatActivity {
@@ -43,7 +53,10 @@ public class dlmaterialhistory extends AppCompatActivity {
 
     Toolbar toolbar;
 
-    String uid;
+    String uid, selectedmodule, enmod;
+
+    DrawerLayout drawerLayout;
+    ListView lvnaviEn;
 
     private static Context context;
 
@@ -59,7 +72,7 @@ public class dlmaterialhistory extends AppCompatActivity {
         setContentView(R.layout.dlmaterialhistory);
 
         history = findViewById(R.id.rvHistory);
-        toolbar = findViewById(R.id.forumbar);
+
 
         //get class context
         dlmaterialhistory.context = getApplicationContext();
@@ -75,6 +88,7 @@ public class dlmaterialhistory extends AppCompatActivity {
         mStorageRef = FirebaseStorage.getInstance("gs://p2-web-7da74.appspot.com/").getReference();
 
         //toolbar code
+        toolbar = findViewById(R.id.forumbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Downloaded material history");
@@ -83,6 +97,45 @@ public class dlmaterialhistory extends AppCompatActivity {
         //init rv
         layoutManager = new LinearLayoutManager(context);
         history.setLayoutManager(layoutManager);
+
+        //navi bar / navi bar for my module code
+        final DatabaseReference enrolment = FirebaseDatabase.getInstance().getReference().child("enrollment").child(uid);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        lvnaviEn = findViewById(R.id.lvnaviEnroll);
+        enrolment.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> enrolmentList = new ArrayList<>();
+                for(DataSnapshot enrolmentmodule : snapshot.getChildren()){
+
+                    enmod = enrolmentmodule.getValue().toString();
+
+                    enrolmentList.add(enmod);
+
+                }
+
+                final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, enrolmentList);
+                lvnaviEn.setAdapter(adapter);
+                lvnaviEn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        selectedmodule = parent.getItemAtPosition(position).toString();
+                        Log.d("Out", selectedmodule);
+                        Intent intent = new Intent(context, ViewLearningFragment.class);
+                        intent.putExtra("selectmodule", selectedmodule);
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
 
@@ -202,5 +255,44 @@ public class dlmaterialhistory extends AppCompatActivity {
 
             }
         });
+    }
+
+    //intents for navigation items
+    public void tvTasklistClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        CategoryFragment fragment = new CategoryFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
+    public void tvDiscussionClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, discussionboard.class);
+    }
+
+    public void tvLogoutClick(View view) {
+        FirebaseAuth.getInstance().signOut();
+        redirectActivity(this, login.class);
+    }
+
+    public void tvBrowseModulesClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, MainActivity.class);
+    }
+
+    public void tvAccountClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        account fragment = new account();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass) {
+        Intent intent = new Intent(activity, aClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+
     }
 }

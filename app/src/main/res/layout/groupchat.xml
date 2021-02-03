@@ -7,103 +7,113 @@
     android:layout_height="match_parent"
     android:id="@+id/drawer_layout"
     tools:context=".MainActivity">
-<RelativeLayout
 
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include
-        layout="@layout/studygrp_toobar"
-        android:id="@+id/grpnamebar"></include>
-
-
 
     <LinearLayout
-        android:id="@+id/grpnamell"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_below="@+id/grpnamebar">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvStudygrpname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/quicksand"
-            android:paddingLeft="20dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="20dp"
-            android:text="Study group name"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        <include
+            layout="@layout/studygrp_toobar"
+            android:id="@+id/grpnamebar"></include>
 
-    <ScrollView
-        android:id="@+id/scrollview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/grpnamell"
-        android:layout_above="@+id/sendmsgll">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_below="@+id/scrollview">
-
-            <TextView
-                android:id="@+id/tvgrpchatdisplay"
+            android:id="@+id/frameLayout">
+            <LinearLayout
+                android:id="@+id/grpnamell"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginEnd="2dp"
-                android:layout_marginBottom="50dp"
-                android:fontFamily="@font/quicksand"
-                android:padding="10dp"
-                android:textAllCaps="false"
-                android:textColor="@android:color/background_dark"
-                android:textSize="20sp">
+                android:orientation="horizontal">
 
-            </TextView>
+                <TextView
+                    android:id="@+id/tvStudygrpname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/quicksand"
+                    android:paddingLeft="20dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="20dp"
+                    android:text="Study group name"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
-        </LinearLayout>
+            <ScrollView
+                android:id="@+id/scrollview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/grpnamell"
+                android:layout_above="@+id/sendmsgll">
 
-    </ScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_below="@+id/scrollview">
 
+                    <TextView
+                        android:id="@+id/tvgrpchatdisplay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="50dp"
+                        android:fontFamily="@font/quicksand"
+                        android:padding="10dp"
+                        android:textAllCaps="false"
+                        android:textColor="@android:color/background_dark"
+                        android:textSize="20sp">
 
-    <LinearLayout
-        android:id="@+id/sendmsgll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true">
+                    </TextView>
 
-        <EditText
-            android:id="@+id/etMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="2"
-            android:fontFamily="@font/quicksand"
-            android:hint="Type a message..."
-            android:padding="17dp"></EditText>
+                </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/btnSend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="0.1"
-            app:srcCompat="@drawable/ic_send"></ImageButton>
+            </ScrollView>
+
+            <LinearLayout
+                android:id="@+id/sendmsgll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true">
+
+                <EditText
+                    android:id="@+id/etMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/quicksand"
+                    android:hint="Type a message..."
+                    android:padding="17dp"></EditText>
+
+                <ImageButton
+                    android:id="@+id/btnSend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="0.1"
+                    app:srcCompat="@drawable/ic_send"></ImageButton>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
 
-    <RelativeLayout
+
+<RelativeLayout
     android:layout_width="300dp"
     android:layout_height="match_parent"
     android:layout_gravity="start"

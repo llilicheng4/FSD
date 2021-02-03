@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
-                    app:srcCompat="@drawable/ic_menu"></ImageView>
+                    app:srcCompat="@drawable/ic_tasklist"></ImageView>
 
                 <TextView
                     android:id="@+id/tvTasklist"

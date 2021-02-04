@@ -3,17 +3,26 @@ package sg.edu.np.mad.evap2;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -25,6 +34,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class forum extends AppCompatActivity {
     Toolbar toolbar;
     RecyclerView rvForum;
@@ -33,11 +45,19 @@ public class forum extends AppCompatActivity {
     DatabaseReference ref, eref;
     FirebaseAuth mauth;
 
-    String currentuserid, currentemail;
+    String currentuserid, currentemail, selectedmodule, enmod, uid;
+
+    DrawerLayout drawerLayout;
+    ListView lvnaviEn;
+
+    private static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forum);
+
+        forum.context = getApplicationContext();
 
         rvForum = findViewById(R.id.rvforum);
 
@@ -45,9 +65,10 @@ public class forum extends AppCompatActivity {
 
         mauth = FirebaseAuth.getInstance();
 
+        uid = mauth.getUid();
+
         //toolbar code
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Forum");
 
@@ -57,6 +78,45 @@ public class forum extends AppCompatActivity {
 
         ref = FirebaseDatabase.getInstance().getReference().child("Forums");
         eref = FirebaseDatabase.getInstance().getReference().child("Forums");
+
+        //navi bar / navi bar for my module code
+        final DatabaseReference enrolment = FirebaseDatabase.getInstance().getReference().child("enrollment").child(uid);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        lvnaviEn = findViewById(R.id.lvnaviEnroll);
+        enrolment.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> enrolmentList = new ArrayList<>();
+                for(DataSnapshot enrolmentmodule : snapshot.getChildren()){
+
+                    enmod = enrolmentmodule.getValue().toString();
+
+                    enrolmentList.add(enmod);
+
+                }
+
+                final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, enrolmentList);
+                lvnaviEn.setAdapter(adapter);
+                lvnaviEn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        selectedmodule = parent.getItemAtPosition(position).toString();
+                        Log.d("Out", selectedmodule);
+                        Intent intent = new Intent(context, ViewLearningFragment.class);
+                        intent.putExtra("selectmodule", selectedmodule);
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -161,6 +221,54 @@ public class forum extends AppCompatActivity {
             noofanswers = itemView.findViewById(R.id.tvVoteCount);
             category = itemView.findViewById(R.id.tvModule);
         }
+    }
+
+    //allows for the drawer to disappear if user presses back on their phone
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START); //close drawer
+        }
+    }
+
+    //intents for navigation items
+    public void tvTasklistClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Task lisk");
+        CategoryFragment fragment = new CategoryFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
+    public void tvDiscussionClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, discussionboard.class);
+    }
+
+    public void tvLogoutClick(View view) {
+        FirebaseAuth.getInstance().signOut();
+        redirectActivity(this, login.class);
+    }
+
+    public void tvBrowseModulesClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, MainActivity.class);
+    }
+
+    public void tvAccountClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Account");
+        account fragment = new account();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
+    public static void redirectActivity(Activity activity, Class aClass) {
+        Intent intent = new Intent(activity, aClass);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        activity.startActivity(intent);
+
     }
 
 }

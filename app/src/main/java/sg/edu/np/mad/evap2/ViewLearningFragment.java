@@ -13,7 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +49,7 @@ import com.google.firebase.storage.StorageReference;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
@@ -72,8 +76,9 @@ public class ViewLearningFragment extends AppCompatActivity {
     FirebaseDatabase secondaryDB;
     FirebaseAuth auth;
 
-    String userID;
+    String userID, selectedmodule, enmod;
 
+    ListView lvnaviEn;
     //1. OnCreateView
 
     @Override
@@ -81,14 +86,21 @@ public class ViewLearningFragment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_view_module);
         ViewLearningFragment.context = getApplicationContext();
+        auth = FirebaseAuth.getInstance();
+        userID = auth.getUid();
+        Bundle selectedmod = getIntent().getExtras();
+
+        if(selectedmod != null){
+            selectedmodule = selectedmod.getString("selectmodule");
+        }
         //code to get 2nd firebase db
-        FirebaseOptions options = new FirebaseOptions.Builder()
+        final FirebaseOptions options = new FirebaseOptions.Builder()
                 .setApplicationId("1:783825586537:android:cdd90f1300165eee3195f8")
                 .setApiKey("AIzaSyDw-fCVxxs_iA02zsPGb_PWkB3U205kQ-g")
                 .setDatabaseUrl("https://p2-web-7da74-default-rtdb.firebaseio.com")
                 .build();
 
-        FirebaseApp.initializeApp(this.context, options, "secondary");
+        FirebaseApp.initializeApp(context, options, "secondary");
         app = FirebaseApp.getInstance("secondary");
         secondaryDB = FirebaseDatabase.getInstance(app);
 
@@ -96,9 +108,7 @@ public class ViewLearningFragment extends AppCompatActivity {
         secondarydbRef = FirebaseDatabase.getInstance(app).getReference();
         mStorageRef = FirebaseStorage.getInstance("gs://p2-web-7da74.appspot.com/").getReference();
         databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        auth = FirebaseAuth.getInstance();
-        userID = auth.getUid();
+        final DatabaseReference enrolment = FirebaseDatabase.getInstance().getReference().child("enrollment").child(userID);
 
         Module newModule = new Module("FSD","Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development", "InfoTech");
         materials = new ArrayList<LMaterial>();
@@ -119,10 +129,11 @@ public class ViewLearningFragment extends AppCompatActivity {
         moduleDesc = findViewById(R.id.modDesc);
         recyclerView = findViewById(R.id.materials);
         drawerLayout = findViewById(R.id.drawer_layout);
-        //toolbar = findViewById(R.id.viewmatbar);
 
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setTitle(newModule.getModName());
+        toolbar = findViewById(R.id.forumbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(selectedmodule);
 
         moduleName.setText(newModule.getModName());
         moduleDesc.setText(newModule.getModDesc());
@@ -137,18 +148,71 @@ public class ViewLearningFragment extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
+        //navi bar for my module code
+        lvnaviEn = findViewById(R.id.lvnaviEnroll);
+        enrolment.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> enrolmentList = new ArrayList<>();
+                for(DataSnapshot enrolmentmodule : snapshot.getChildren()){
+
+                    enmod = enrolmentmodule.getValue().toString();
+
+                    enrolmentList.add(enmod);
+
+                }
+
+                final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, enrolmentList);
+                lvnaviEn.setAdapter(adapter);
+                lvnaviEn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        //kills 2nd firebase instance
+                        try{
+                            FirebaseApp.getInstance("secondary").delete();
+                        }
+                        catch(IllegalStateException e){
+                            selectedmodule = parent.getItemAtPosition(position).toString();
+                            Log.d("Out", selectedmodule);
+                            Intent intent = new Intent(context, ViewLearningFragment.class);
+                            intent.putExtra("selectmodule", selectedmodule);
+
+                            drawerLayout.closeDrawer(GravityCompat.START);
+
+                            startActivity(intent);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
+    //kills 2nd firebase instance
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try{
+            FirebaseApp.getInstance("secondary").delete();
+        }
+        catch(IllegalStateException e){
+
+        }
+
+    }
 
     @Override
     public void onStart(){
         super.onStart();
-
         final DatabaseReference secondarydbRef = FirebaseDatabase.getInstance(app).getReference().child("Materials");
 
         FirebaseRecyclerOptions options =
                 new FirebaseRecyclerOptions.Builder<LMaterial>()
-                        .setQuery(secondarydbRef.orderByChild("ModuleName").equalTo("PA"), LMaterial.class)
+                        .setQuery(secondarydbRef.orderByChild("ModuleName").equalTo(selectedmodule), LMaterial.class)
                         .build();
 
         FirebaseRecyclerAdapter<LMaterial, ViewLearningFragment.GroupsViewHolder> adapter
@@ -185,7 +249,7 @@ public class ViewLearningFragment extends AppCompatActivity {
                         groupsViewHolder.dlMat.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                startDownload(modname, weekNum, filename, filewExt, context);
+                                startDownload(modname, weekNum, filewExt, filewExt, context);
                                 LMaterial material = new LMaterial(modname, filename, filewExt, weekNum);
 
                                 databaseReference.child("Download history").child(userID).push().setValue(material);
@@ -243,8 +307,11 @@ public class ViewLearningFragment extends AppCompatActivity {
     }
 
 
-    public void startDownload(String module, String week, final String filename, final String fnameEXT, final Context context) {
-        ref = mStorageRef.child("Modules").child(module).child(week).child(filename).child(fnameEXT);
+    public void startDownload(String module, String week, final String filenameEXT,final String fnameEXT, final Context context) {
+        String[] parts = fnameEXT.split("\\.");
+        final String extension = parts[1];
+        ref = mStorageRef.child("Modules").child(module).child(week).child(filenameEXT).child(fnameEXT + "." + extension);
+        Log.d("OUTPUT", String.valueOf(ref));
 
         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -252,10 +319,9 @@ public class ViewLearningFragment extends AppCompatActivity {
                 String url = uri.toString();
 
                 //split file into 2 part, the file name and the file extension
-                String[] parts = fnameEXT.split("\\.");
-                String extension = parts[1];
-                Uri fileExt = Uri.parse(filename);
-                downloadItems(context, filename +".", extension, DIRECTORY_DOWNLOADS, url);
+                /*String[] parts = fnameEXT.split("\\.");
+                String extension = parts[1];*/
+                downloadItems(context, filenameEXT , "."+extension, DIRECTORY_DOWNLOADS, url);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -286,6 +352,9 @@ public class ViewLearningFragment extends AppCompatActivity {
     public void tvTasklistClick(View view) {
         drawerLayout.closeDrawer(GravityCompat.START);
 
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Task lisk");
+
         CategoryFragment fragment = new CategoryFragment();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
@@ -300,11 +369,7 @@ public class ViewLearningFragment extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         redirectActivity(this, login.class);
     }
-    public void tvModulesClick(View view){
-        Log.d(TAG, "modules clicked ");
-        drawerLayout.closeDrawer(GravityCompat.START);
-        redirectActivity(this, ViewLearningFragment.class);
-    };
+
     public void tvBrowseModulesClick(View view){
         drawerLayout.closeDrawer(GravityCompat.START);
         redirectActivity(this, MainActivity.class);
@@ -312,7 +377,8 @@ public class ViewLearningFragment extends AppCompatActivity {
 
     public void tvAccountClick(View view){
         drawerLayout.closeDrawer(GravityCompat.START);
-
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Account");
         account fragment = new account();
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();

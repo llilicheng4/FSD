@@ -42,8 +42,11 @@
         <activity android:name=".signup" />
         <activity android:name=".discussionboard" />
         <!--<activity android:name=".account" />-->
-        <activity android:name=".creategrp" />
-        <activity android:name=".grpchat" />
+        <activity android:name=".creategrp"
+            android:parentActivityName=".discussionboard"/>
+
+        <activity android:name=".grpchat"
+            android:parentActivityName=".discussionboard" />
         <activity
             android:name=".dlmaterialhistory"
             android:launchMode="singleTop"/>

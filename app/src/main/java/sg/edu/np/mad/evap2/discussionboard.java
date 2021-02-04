@@ -1,19 +1,24 @@
 package sg.edu.np.mad.evap2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +31,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class discussionboard extends AppCompatActivity {
 
@@ -41,12 +49,18 @@ public class discussionboard extends AppCompatActivity {
     DatabaseReference ref, eref;
     FirebaseAuth mauth;
 
-    String currentuserid, currentemail;
+    String currentuserid, currentemail, selectedmodule, enmod;
+
+    ListView lvnaviEn;
+
+    private static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.discussion_board);
+
+        discussionboard.context = getApplicationContext();
 
         viewall = findViewById(R.id.tvViewall);
 
@@ -56,7 +70,7 @@ public class discussionboard extends AppCompatActivity {
         grprv = findViewById(R.id.rvStudyGrp);
         forumrv = findViewById(R.id.rvForums);
 
-        layoutManager = new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         grprv.setLayoutManager(layoutManager);
 
         mauth = FirebaseAuth.getInstance();
@@ -66,6 +80,7 @@ public class discussionboard extends AppCompatActivity {
 
         ref = FirebaseDatabase.getInstance().getReference().child("Groups");
         eref = FirebaseDatabase.getInstance().getReference().child("Groups");
+        final DatabaseReference enrolment = FirebaseDatabase.getInstance().getReference().child("enrollment").child(currentuserid);
 
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +93,43 @@ public class discussionboard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 redirectActivity(discussionboard.this, forum.class);
+            }
+        });
+
+        //navi bar for my module code
+        lvnaviEn = findViewById(R.id.lvnaviEnroll);
+        enrolment.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> enrolmentList = new ArrayList<>();
+                for(DataSnapshot enrolmentmodule : snapshot.getChildren()){
+
+                    enmod = enrolmentmodule.getValue().toString();
+
+                    enrolmentList.add(enmod);
+
+                }
+
+                final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, enrolmentList);
+                lvnaviEn.setAdapter(adapter);
+                lvnaviEn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        selectedmodule = parent.getItemAtPosition(position).toString();
+                        Log.d("Out", selectedmodule);
+                        Intent intent = new Intent(context, ViewLearningFragment.class);
+                        intent.putExtra("selectmodule", selectedmodule);
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
@@ -101,15 +153,37 @@ public class discussionboard extends AppCompatActivity {
     }
 
     //intents for navigation items
-    public void tvTasklistClick(View view){
-        Intent i = new Intent(discussionboard.this, CategoryFragment.class);
-        startActivity(i);
+    public void tvTasklistClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        CategoryFragment fragment = new CategoryFragment();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
+    public void tvDiscussionClick(View view) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, discussionboard.class);
     }
 
     public void tvLogoutClick(View view) {
         FirebaseAuth.getInstance().signOut();
         redirectActivity(this, login.class);
     }
+
+    public void tvBrowseModulesClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
+        redirectActivity(this, MainActivity.class);
+    }
+
+    public void tvAccountClick(View view){
+        drawerLayout.closeDrawer(GravityCompat.START);
+
+        account fragment = new account();
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
 
     public static void redirectActivity(Activity activity, Class aClass){
         Intent intent = new Intent(activity,aClass);
@@ -123,6 +197,7 @@ public class discussionboard extends AppCompatActivity {
     public void onStart(){
         super.onStart();
 
+        //code for grp list
         String fbemail = currentemail.replace(".","_");
 
         FirebaseRecyclerOptions options =

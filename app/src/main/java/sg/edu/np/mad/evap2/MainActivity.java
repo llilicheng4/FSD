@@ -1,12 +1,17 @@
 package sg.edu.np.mad.evap2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -27,6 +32,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,33 +40,90 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     public UserModel userModel;
     private static final String TAG = "MainActivity";
-    RecyclerView viewIT, viewBA, viewEN;
+    RecyclerView viewIT, viewBA, viewEN, naviEn;
     ArrayList<Module> ITModules, BAModules, ENModules;
     private BrowseAdapter mAdapter;
     private BrowseAdapter browseAdapter , enAdapter;
+    TextView tvenmod;
     ImageView searchButton;
     EditText searchItem;
+
+    String emodule, enmod, selectedmodule;
+
+    FirebaseAuth mauth;
+
+    private static Context context;
+
+    ListView lvnaviEn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        MainActivity.context = getApplicationContext();
+
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawer_layout);
+
         viewIT = findViewById(R.id.ITrecyclerView);
         viewBA = findViewById(R.id.BArecyelerView);
         viewEN = findViewById(R.id.EnrecyclerView);
+        //naviEn = findViewById(R.id.rvEnmod);
+
         ITModules = new ArrayList<>();
         BAModules = new ArrayList<>();
         ENModules = new ArrayList<>();
+
         searchButton = findViewById(R.id.searchView);
         searchItem = findViewById(R.id.search);
 
+        tvenmod = findViewById(R.id.tvEnmod);
 
+        mauth = FirebaseAuth.getInstance();
+
+        String uid = mauth.getUid();
 
         final DatabaseReference DBRef = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference Modules = FirebaseDatabase.getInstance().getReference().child("modules");
 
+        //my module navigation code
+        final DatabaseReference enrolment = FirebaseDatabase.getInstance().getReference().child("enrollment").child(uid);
 
+        lvnaviEn = findViewById(R.id.lvnaviEnroll);
+        enrolment.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> enrolmentList = new ArrayList<>();
+                for(DataSnapshot enrolmentmodule : snapshot.getChildren()){
+
+                    enmod = enrolmentmodule.getValue().toString();
+
+                    enrolmentList.add(enmod);
+
+                }
+
+                final ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, enrolmentList);
+                lvnaviEn.setAdapter(adapter);
+                lvnaviEn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        selectedmodule = parent.getItemAtPosition(position).toString();
+                        Log.d("Out", selectedmodule);
+                        Intent intent = new Intent(context, ViewLearningFragment.class);
+                        intent.putExtra("selectmodule", selectedmodule);
+
+                        drawerLayout.closeDrawer(GravityCompat.START);
+
+                        startActivity(intent);
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //Log.d(TAG, Modules.toString());
         /*Module newModule = new Module("FSD", "full stack development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development","InfoTech");
@@ -145,6 +208,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void getEnrolmentlist(List<String> list){
+        for(int i = 0; i <= list.size(); i++){
+            emodule = list.get(i);
+        }
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -188,11 +257,6 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         redirectActivity(this, login.class);
     }
-    public void tvModulesClick(View view){
-        Log.d(TAG, "modules clicked ");
-        drawerLayout.closeDrawer(GravityCompat.START);
-        redirectActivity(this, ViewLearningFragment.class);
-    };
     public void tvBrowseModulesClick(View view){
         drawerLayout.closeDrawer(GravityCompat.START);
         redirectActivity(this, MainActivity.class);

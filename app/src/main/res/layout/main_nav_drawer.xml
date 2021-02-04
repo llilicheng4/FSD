@@ -36,16 +36,8 @@
                 android:text="Oversized Username"
                 android:textColor="#F4F4F4"
                 android:textSize="16sp"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold"></TextView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:fontFamily="@font/quicksand"
-                android:text="Student - Y2 - IT"
-                android:textColor="#F4F4F4"
-                android:textSize="13sp"></TextView>
 
             <TextView
                 android:layout_width="match_parent"

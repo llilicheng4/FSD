@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -51,7 +53,8 @@ public class CategoryFragment extends Fragment {
 
         //Set reference to XML
         projectName = v.findViewById(R.id.newKanpanName);
-        ImageView addCategory = v.findViewById(R.id.addKanpan);
+        ImageButton addCategory = v.findViewById(R.id.addKanpan);
+
         //navigationView = getActivity().findViewById(R.id.);
 
 
@@ -67,9 +70,30 @@ public class CategoryFragment extends Fragment {
 
 
         //1.4 Add new category
+//        addCategory.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                final CategoryModel categoryModel = new CategoryModel(categoryModels.size()+1, "new title");
+//                //Update current project data
+//                dbHandler.addCatToUser(user, categoryModel);
+//
+//                user.getCategories().clear();
+//                user.getCategories().addAll(dbHandler.getUserCategories(user.getEmail()));
+//                Log.d(TAG, ": "+ dbHandler.getUserCategories(user.getEmail()).toString());
+//                Log.d(TAG, "onClick: "+user.getCategories().toString());
+//                adapter.notifyDataSetChanged(); //Refresh recycler view
+//            }
+//        });
+        add(categoryModels, user, addCategory);
+        return v;
+
+    }
+
+    private void add(final ArrayList<CategoryModel> categoryModels, final UserModel user, final ImageButton addCategory){
         addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("Output", "clicked");
                 final CategoryModel categoryModel = new CategoryModel(categoryModels.size()+1, "new title");
                 //Update current project data
                 dbHandler.addCatToUser(user, categoryModel);
@@ -81,10 +105,5 @@ public class CategoryFragment extends Fragment {
                 adapter.notifyDataSetChanged(); //Refresh recycler view
             }
         });
-
-        return v;
-
     }
-
-
 }

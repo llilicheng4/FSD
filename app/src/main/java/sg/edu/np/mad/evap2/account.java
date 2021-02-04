@@ -69,12 +69,7 @@ public class account extends Fragment {
 
     String currentEmail, currentUsername, currentUserID;
     Toolbar toolbar;
-    //String scheduledate, schedulename, schedulelocation, idValue, title;
 
-
-    /*cursor to get the content of the calendar
-    Cursor cursor;
-    end*/
 
     @Nullable
     @Override
@@ -117,53 +112,6 @@ public class account extends Fragment {
                 startActivity(intent);
             }
         });
-
-        /*final ContentResolver contentResolver = getContext().getContentResolver();
-
-        if (ActivityCompat.checkSelfPermission(v.getContext(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return v;
-        }
-        cursor = contentResolver.query(CalendarContract.Events.CONTENT_URI, null, null, null, null);
-
-        while(cursor.moveToNext()){
-            if(cursor!=null){
-                int coloindex = cursor.getColumnIndex(CalendarContract.Events._ID);
-                int colotitle = cursor.getColumnIndex(CalendarContract.Events.TITLE);
-                int colodesc = cursor.getColumnIndex(CalendarContract.Events.DESCRIPTION);
-                int cololocation = cursor.getColumnIndex(CalendarContract.Events.EVENT_LOCATION);
-                int coloday = cursor.getColumnIndex(CalendarContract.Events.DTSTART);
-
-                idValue = cursor.getColumnName(coloindex);
-                title = cursor.getColumnName(colotitle);
-                scheduledate = cursor.getColumnName(coloday);
-                schedulelocation = cursor.getColumnName(cololocation);
-                schedulename = cursor.getColumnName(colodesc);
-
-                slist.add(scheduledate);
-                slist.add(schedulename);
-                slist.add(schedulelocation);
-
-                Toast.makeText(v.getContext(), idValue + ", " + title+ ", " +scheduledate+ ", " +schedulelocation+ ", " +schedulename, Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(v.getContext(),"There are no schedule in your calendar", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        //init rv
-        ScheduleAdapter adapter = new ScheduleAdapter(slist);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
-
-        rvSchedule.setLayoutManager(layoutManager);
-        rvSchedule.setItemAnimator(new DefaultItemAnimator());
-        rvSchedule.setAdapter(adapter);*/
 
         return v;
     }

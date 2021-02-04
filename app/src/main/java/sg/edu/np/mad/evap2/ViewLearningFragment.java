@@ -126,19 +126,7 @@ public class ViewLearningFragment extends AppCompatActivity {
 
 
         materials = new ArrayList<LMaterial>();
-        //LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
-        //materials.add(material);
-        //newModule.setlMaterialsList(materials);
-        /*databaseReference.child("modules").child(newModule.getModuleSchool()).child(newModule.getModName()).setValue(newModule).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "success");
-            }
-        });*/
 
-        /*LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
-        materials.add(material);
-        newModule.setlMaterialsList(materials);*/
         moduleName = findViewById(R.id.modName);
         moduleDesc = findViewById(R.id.modDesc);
         recyclerView = findViewById(R.id.materials);
@@ -157,12 +145,6 @@ public class ViewLearningFragment extends AppCompatActivity {
                 moduleDesc.setText(viewedMod.getModDesc());
             }
         }
-        //gonna comment your rv code so that i can replace it with the one i am using
-        /*mAdapter = new MaterialAdapter(materials, getActivity(), getContext());
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(mAdapter);*/
 
         layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
@@ -240,18 +222,6 @@ public class ViewLearningFragment extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull final ViewLearningFragment.GroupsViewHolder groupsViewHolder, final int i, @NonNull LMaterial LMaterial) {
                 final String materialid = getRef(i).getKey();
-
-                //get file name
-                /*secondarydbRef.child(materialid).child("File").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        final String fileName = snapshot.child("FileName").getValue().toString();
-                        groupsViewHolder.file.setText(fileName);
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });*/
 
                 secondarydbRef.child(materialid).addValueEventListener(new ValueEventListener() {
                     @Override
@@ -335,9 +305,6 @@ public class ViewLearningFragment extends AppCompatActivity {
             public void onSuccess(Uri uri) {
                 String url = uri.toString();
 
-                //split file into 2 part, the file name and the file extension
-                /*String[] parts = fnameEXT.split("\\.");
-                String extension = parts[1];*/
                 downloadItems(context, filenameEXT , "."+extension, DIRECTORY_DOWNLOADS, url);
             }
         }).addOnFailureListener(new OnFailureListener() {

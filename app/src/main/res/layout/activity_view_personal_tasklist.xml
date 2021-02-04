@@ -8,25 +8,25 @@
 
     <ImageView
         android:id="@+id/addKanpan"
-        android:layout_width="39dp"
-        android:layout_height="36dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="68dp"
-        android:src="@drawable/add_ic"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/add" />
 
     <ImageView
         android:id="@+id/task_IC"
         android:layout_width="35dp"
-        android:layout_height="32dp"
+        android:layout_height="35dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="72dp"
-        android:layout_marginEnd="336dp"
-        android:src="@drawable/tasklist_ic"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="320dp"
+        android:src="@drawable/clipboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,13 +45,11 @@
         android:id="@+id/newKanpanName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
         android:ems="10"
+        android:hint="new tasklist"
         android:inputType="textPersonName"
-        android:text="new kan pan"
-        app:layout_constraintEnd_toStartOf="@+id/addKanpan"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/task_IC"
         app:layout_constraintTop_toTopOf="parent" />
     <!--app:layout_constraintTop_toBottomOf="@+id/deleteKanpan"

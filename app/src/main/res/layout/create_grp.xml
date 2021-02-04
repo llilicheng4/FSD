@@ -81,7 +81,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/etGrpdesc"
                 app:layout_constraintVertical_bias="1.0"
-                app:srcCompat="@drawable/add"
+                app:srcCompat="@drawable/add_ic"
                 android:focusable="true" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

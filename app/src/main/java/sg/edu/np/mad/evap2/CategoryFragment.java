@@ -70,6 +70,7 @@ public class CategoryFragment extends Fragment {
         addCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(TAG, "addcat");
                 final CategoryModel categoryModel = new CategoryModel(categoryModels.size()+1, "new title");
                 //Update current project data
                 dbHandler.addCatToUser(user, categoryModel);

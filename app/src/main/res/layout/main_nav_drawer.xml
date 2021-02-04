@@ -89,30 +89,6 @@
                     android:textSize="16sp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_weight="0.1">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    app:srcCompat="@drawable/ic_tasklist"></ImageView>
-
-                <TextView
-                    android:id="@+id/tvTasklist"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fontFamily="@font/quicksand"
-                    android:gravity="center_vertical"
-                    android:text="Personal tasklist"
-                    android:onClick="tvTasklistClick"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"/>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

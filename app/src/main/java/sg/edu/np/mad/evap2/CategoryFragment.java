@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -90,20 +91,27 @@ public class CategoryFragment extends Fragment {
     }
 
     private void add(final ArrayList<CategoryModel> categoryModels, final UserModel user, final ImageButton addCategory){
-        addCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("Output", "clicked");
-                final CategoryModel categoryModel = new CategoryModel(categoryModels.size()+1, "new title");
-                //Update current project data
-                dbHandler.addCatToUser(user, categoryModel);
+            addCategory.setOnClickListener(new View.OnClickListener() {
+                @Override
 
-                user.getCategories().clear();
-                user.getCategories().addAll(dbHandler.getUserCategories(user.getEmail()));
-                Log.d(TAG, ": "+ dbHandler.getUserCategories(user.getEmail()).toString());
-                Log.d(TAG, "onClick: "+user.getCategories().toString());
-                adapter.notifyDataSetChanged(); //Refresh recycler view
-            }
-        });
+                public void onClick(View view) {
+                    String title = String.valueOf(projectName.getText());
+                    Log.d("Output", "clicked");
+                    Log.d(TAG, title);
+                    if (!title.isEmpty()) {
+                        final CategoryModel categoryModel = new CategoryModel(categoryModels.size() + 1, title);
+                        //Update current project data
+                        dbHandler.addCatToUser(user, categoryModel);
+
+                        user.getCategories().clear();
+                        user.getCategories().addAll(dbHandler.getUserCategories(user.getEmail()));
+                        Log.d(TAG, ": " + dbHandler.getUserCategories(user.getEmail()).toString());
+                        Log.d(TAG, "onClick: " + user.getCategories().toString());
+                        adapter.notifyDataSetChanged(); //Refresh recycler view
+                    } else {
+                        projectName.setError("Please enter a name");
+                    }
+                }
+            });
+        }
     }
-}

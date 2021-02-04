@@ -20,6 +20,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -67,7 +68,7 @@ public class account extends Fragment {
     FirebaseAuth mauth;
 
     String currentEmail, currentUsername, currentUserID;
-
+    Toolbar toolbar;
     //String scheduledate, schedulename, schedulelocation, idValue, title;
 
 
@@ -82,7 +83,7 @@ public class account extends Fragment {
         final View v = inflater.inflate(R.layout.account, container, false);
 
         rvSchedule = v.findViewById(R.id.rvSchedule);
-
+        toolbar = v.findViewById(R.id.forumbar);
         tvUsername = v.findViewById(R.id.tvUsername);
         tvEmail = v.findViewById(R.id.tvEmail);
 

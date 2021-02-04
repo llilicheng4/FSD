@@ -16,7 +16,7 @@ public class TaskViewHolder extends RecyclerView.ViewHolder {
     public TaskViewHolder(@NonNull View itemView) {
         super(itemView);
         taskName = itemView.findViewById(R.id.TaskName);
-        taskPriority = itemView.findViewById(R.id.taskPriority);
+        taskPriority = itemView.findViewById(R.id.textView21);
         taskDelete = itemView.findViewById(R.id.taskDelete);
         task = itemView.findViewById(R.id.task);
     }

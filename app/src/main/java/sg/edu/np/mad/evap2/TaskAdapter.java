@@ -56,7 +56,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         String taskTitle = task.getTitle();
         holder.taskName.setText(taskTitle);
 
-        String currentPriority = task.getPriority();
+        /*String currentPriority = task.getPriority();
         if(currentPriority.equals("impt")){
             holder.taskPriority.setBackgroundResource(R.drawable.bg_impt);
         }
@@ -68,7 +68,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
         }
         else{
             holder.taskPriority.setBackgroundResource(R.drawable.bg_layer3);
-        }
+        }*/
 
         //Set required data as tags for their functions
         holder.task.setTag(task);
@@ -129,6 +129,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskViewHolder> {
             }
         });
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         //3.3 Shift task
         /*holder.taskShift.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TaskModel {
     private Integer taskId, categoryId;
-    private String title, description, priority;
+    private String title, description;
     private ArrayList<NoteModel> notes = new ArrayList<>();
 
     //Constructors
@@ -16,7 +16,6 @@ public class TaskModel {
         this.categoryId = categoryId; //The category the task is under
         this.title = title;
         this.description = description;
-        this.priority = priority;
         //Unlikely to pass in notes in constructor, would also require the set condition null check to be run.
     }
 
@@ -51,14 +50,6 @@ public class TaskModel {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
     }
 
     public ArrayList<NoteModel> getNotes() {

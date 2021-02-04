@@ -17,7 +17,7 @@
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deleteKanpan"
         app:layout_constraintVertical_bias="1.0" />
@@ -28,25 +28,25 @@
         android:layout_height="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
         android:src="@drawable/outline_delete_white_18"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/personal_task"
-        android:layout_width="108dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="9dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
         android:gravity="center_vertical"
         android:text="Personal tasklist"
         android:textAppearance="@style/note_title"
-        app:layout_constraintBottom_toTopOf="@+id/taskRecyclerView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/addTask"
@@ -54,8 +54,8 @@
         android:layout_height="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="68dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="55dp"
         android:src="@drawable/white_add"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

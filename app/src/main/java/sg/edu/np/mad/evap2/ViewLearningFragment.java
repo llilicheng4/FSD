@@ -79,6 +79,10 @@ public class ViewLearningFragment extends AppCompatActivity {
     String userID, selectedmodule, enmod;
 
     ListView lvnaviEn;
+
+    Module viewedMod;
+    ArrayList<Module> allMods;
+
     //1. OnCreateView
 
     @Override
@@ -86,6 +90,7 @@ public class ViewLearningFragment extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_view_module);
         ViewLearningFragment.context = getApplicationContext();
+        allMods = new ArrayList<>();
         auth = FirebaseAuth.getInstance();
         userID = auth.getUid();
         Bundle selectedmod = getIntent().getExtras();
@@ -111,6 +116,15 @@ public class ViewLearningFragment extends AppCompatActivity {
         final DatabaseReference enrolment = FirebaseDatabase.getInstance().getReference().child("enrollment").child(userID);
 
         Module newModule = new Module("FSD","Full Stack Development", "full stack development is the development to both front and backend features", "You will learn important skills such as AGILE development", "InfoTech");
+        Module module1 = new Module("ACC1", "accounting 1", "Accounting is the process of recording financial transactions pertaining to a business. The accounting process includes summarizing, analyzing and reporting these transactions to oversight agencies, regulators and tax collection entities.", "Students will learn important skills in accounting", "Business");
+        Module module2 = new Module("PRG1","programming 1", "Programming is the process of creating a set of instructions that tell a computer how to perform a task. Programming can be done using a variety of computer programming languages, such as JavaScript, Python, and C++.", "Students will learn skills and concepts about programming with Python 3.9", "InfoTech");
+        Module module3 = new Module("FMATH", "further mathematics", "Further Mathematics is the title given to a number of advanced secondary mathematics courses. The term Higher and Further Mathematics, and the term Advanced Level Mathematics, may also refer to any of several advanced mathematics courses at many institutions.", "This would include (depending on the institution) courses in analysis (real analysis, complex analysis, functional analysis, etc), courses in modern algebra (group theory, field theory, galois theory, etc), geometry (projective geometry, differential geometry, etc)", "Engineering");
+        allMods.add(newModule);
+        allMods.add(module1);
+        allMods.add(module2);
+        allMods.add(module3);
+
+
         materials = new ArrayList<LMaterial>();
         //LMaterial material = new LMaterial("Week 1 material", "work hard play hard");
         //materials.add(material);
@@ -135,9 +149,14 @@ public class ViewLearningFragment extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(selectedmodule);
 
-        moduleName.setText(newModule.getModName());
-        moduleDesc.setText(newModule.getModDesc());
-
+        for (Module mod:allMods
+        ) {
+            if(mod.getModID().equals(selectedmodule)){
+                viewedMod = mod;
+                moduleName.setText(viewedMod.getModName());
+                moduleDesc.setText(viewedMod.getModDesc());
+            }
+        }
         //gonna comment your rv code so that i can replace it with the one i am using
         /*mAdapter = new MaterialAdapter(materials, getActivity(), getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -229,10 +248,8 @@ public class ViewLearningFragment extends AppCompatActivity {
                         final String fileName = snapshot.child("FileName").getValue().toString();
                         groupsViewHolder.file.setText(fileName);
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });*/
 

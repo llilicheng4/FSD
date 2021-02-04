@@ -72,19 +72,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         holder.categoryAdd.setTag(R.id.category, category);
         holder.categoryAdd.setTag(R.id.taskAdapter, taskAdapter);
 
-        //3.1 Edit category name
-        holder.categoryName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                //If user exits text editing state.
-                if (!hasFocus) {
-                    CategoryModel category = ((CategoryModel) v.getTag());
-                    category.setTitle(((EditText) v).getText().toString().trim());
-                    dbHandler.updateProject(category);
-                }
-            }
-        });
-
         //3.2 Delete category
         holder.categoryDelete.setOnClickListener(new View.OnClickListener() {
             @Override
